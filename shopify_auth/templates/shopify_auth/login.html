@@ -1,6 +1,6 @@
 <h1>Log In</h1>
 
-<form action="{% url 'shopify_authenticate' %}" method="POST">
+<form action="{% url 'shopify_auth.views.authenticate' %}" method="POST">
   {% csrf_token %}
 
   <p>
