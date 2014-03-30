@@ -1,8 +1,9 @@
 from django.conf import settings
-import shopify
+from helpers import get_shopify_current_shop
 
 def shopify_context(request):
   return {
-    'shopify_current_shop': shopify.Shop.current() if shopify.ShopifyResource.site else None,
-    'shopify_app_api_key':  settings.SHOPIFY_APP_API_KEY,
+    'shopify_current_shop': get_shopify_current_shop(),
+    'SHOPIFY_APP_API_KEY':  settings.SHOPIFY_APP_API_KEY,
+    'SHOPIFY_APP_DEV_MODE': settings.SHOPIFY_APP_DEV_MODE,
   }
