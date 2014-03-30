@@ -2,6 +2,13 @@ from django.conf import settings
 from urlparse import urlparse
 import shopify
 
+def get_shopify_dev_shop(shop):
+  """
+  The default method used to populate the Shopify Shop object when in dev
+  mode.
+  """
+  return shop
+
 def get_shopify_current_shop(get_shopify_dev_shop = get_shopify_dev_shop):
   """
   Get the Shopify Shop being used for the current session.
@@ -29,10 +36,3 @@ def get_shopify_current_shop(get_shopify_dev_shop = get_shopify_dev_shop):
 
   # Not in dev mode - just use the Shopify API to return the current shop.
   return shopify.Shop.current()
-
-def get_shopify_dev_shop(shop):
-  """
-  The default method used to populate the Shopify Shop object when in dev
-  mode.
-  """
-  return shop
