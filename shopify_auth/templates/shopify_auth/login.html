@@ -1,15 +1,15 @@
 <h1>Log In</h1>
 
 <form action="{% url 'shopify_auth.views.authenticate' %}" method="POST">
-  {% csrf_token %}
+    {% csrf_token %}
 
-  <p>
-    <label for="shop">Shop URL</label>
-  </p>
+    <p>
+        <label for="shop">Shop URL</label>
+    </p>
 
-  <p>
-    <input id="shop" name="shop" type="text" />
-  </p>
+    <p>
+        <input id="shop" name="shop" type="text" />
+    </p>
 
-  <input type="submit" value="Install" />
+    <input type="submit" value="Install" />
 </form>
