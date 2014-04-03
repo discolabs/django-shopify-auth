@@ -23,6 +23,9 @@ def login(request, *args, **kwargs):
 def authenticate(request, *args, **kwargs):
     shop = request.REQUEST.get('shop')
 
+    if settings.SHOPIFY_APP_DEV_MODE:
+        return finalize(request, *args, **kwargs)
+
     if shop:
         redirect_uri = request.build_absolute_uri(reverse('shopify_auth.views.finalize'))
         shopify_session = shopify.Session(shop)
