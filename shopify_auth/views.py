@@ -1,12 +1,13 @@
-from django.http.response import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.http.response import HttpResponseRedirect
+from django.shortcuts import render, resolve_url
 from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.contrib import auth
 import shopify
 
 
 def get_return_address(request):
-    return request.session.get('return_to') or '/'
+    return request.REQUEST.get(auth.REDIRECT_FIELD_NAME) or resolve_url(settings.LOGIN_REDIRECT_URL)
 
 
 def login(request, *args, **kwargs):
@@ -54,11 +55,10 @@ def finalize(request, *args, **kwargs):
         login_url = reverse('shopify_auth.views.login')
         return HttpResponseRedirect(login_url)
 
-    request.session['shopify'] = {
-        "shop_url":     shop,
-        "access_token": shopify_session.token
-    }
-    request.session.pop('return_to', None)
+    # Attempt to authenticate the user and log them in.
+    user = auth.authenticate(remote_user = shopify_session.url)
+    if user:
+        auth.login(request, user)
 
     return_address = get_return_address(request)
     return HttpResponseRedirect(return_address)
