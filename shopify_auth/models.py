@@ -30,14 +30,13 @@ class ShopUserManager(BaseUserManager):
         return self.create_user(myshopify_domain, domain, password)
 
 
-class ShopUser(AbstractBaseUser):
+class AbstractShopUser(AbstractBaseUser):
     myshopify_domain  = models.CharField(max_length = 255, unique = True)
     token             = models.CharField(max_length = 32)
 
     objects = ShopUserManager()
 
     USERNAME_FIELD  = 'myshopify_domain'
-    REQUIRED_FIELDS = []
 
     def get_full_name(self):
         return self.myshopify_domain
