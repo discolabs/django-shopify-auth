@@ -50,13 +50,13 @@ def finalize(request, *args, **kwargs):
 
     try:
         shopify_session = shopify.Session(shop)
-        shopify_session.request_token(request.REQUEST)
+        token = shopify_session.request_token(request.REQUEST)
     except:
         login_url = reverse('shopify_auth.views.login')
         return HttpResponseRedirect(login_url)
 
     # Attempt to authenticate the user and log them in.
-    user = auth.authenticate(remote_user = shopify_session.url)
+    user = auth.authenticate(myshopify_domain = shopify_session.url, token = token)
     if user:
         auth.login(request, user)
 
