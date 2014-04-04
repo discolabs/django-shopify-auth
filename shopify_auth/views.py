@@ -1,15 +1,16 @@
+import shopify
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, resolve_url
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.contrib import auth
-import shopify
+from .decorators import anonymous_required
 
 
 def get_return_address(request):
     return request.REQUEST.get(auth.REDIRECT_FIELD_NAME) or resolve_url(settings.LOGIN_REDIRECT_URL)
 
-
+@anonymous_required
 def login(request, *args, **kwargs):
     shop = request.REQUEST.get('shop')
 
@@ -19,7 +20,7 @@ def login(request, *args, **kwargs):
 
     return render(request, "shopify_auth/login.html")
 
-
+@anonymous_required
 def authenticate(request, *args, **kwargs):
     shop = request.REQUEST.get('shop')
 
@@ -44,7 +45,7 @@ def authenticate(request, *args, **kwargs):
     return_address = get_return_address(request)
     return HttpResponseRedirect(return_address)
 
-
+@anonymous_required
 def finalize(request, *args, **kwargs):
     shop = request.REQUEST.get('shop')
 
