@@ -24,7 +24,7 @@ def authenticate(request, *args, **kwargs):
     shop = request.REQUEST.get('shop')
 
     if settings.SHOPIFY_APP_DEV_MODE:
-        return finalize(request, *args, **kwargs)
+        return finalize(request, token = '00000000000000000000000000000000', *args, **kwargs)
 
     if shop:
         redirect_uri = request.build_absolute_uri(reverse('shopify_auth.views.finalize'))
@@ -49,14 +49,14 @@ def finalize(request, *args, **kwargs):
     shop = request.REQUEST.get('shop')
 
     try:
-        shopify_session = shopify.Session(shop)
-        token = shopify_session.request_token(request.REQUEST)
+        shopify_session = shopify.Session(shop, token = kwargs.get('token'))
+        shopify_session.request_token(request.REQUEST)
     except:
         login_url = reverse('shopify_auth.views.login')
         return HttpResponseRedirect(login_url)
 
     # Attempt to authenticate the user and log them in.
-    user = auth.authenticate(myshopify_domain = shopify_session.url, token = token)
+    user = auth.authenticate(myshopify_domain = shopify_session.url, token = shopify_session.token)
     if user:
         auth.login(request, user)
 
