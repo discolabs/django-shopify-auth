@@ -45,7 +45,7 @@ class AbstractShopUser(AbstractBaseUser):
         return self.myshopify_domain
 
     def __unicode__(self):
-        return self.get_full_name()
+        return unicode(self.get_full_name())
 
     class Meta:
         abstract = True
