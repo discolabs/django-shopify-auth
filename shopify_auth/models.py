@@ -51,5 +51,5 @@ class AbstractShopUser(AbstractBaseUser):
         abstract = True
 
 
-class UserOwnedMixin(object):
+class UserOwnedMixin(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, editable = False)
