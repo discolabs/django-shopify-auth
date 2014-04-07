@@ -4,11 +4,13 @@ from django.shortcuts import render, resolve_url
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.contrib import auth
+from django.template import RequestContext
 from .decorators import anonymous_required
 
 
 def get_return_address(request):
     return request.REQUEST.get(auth.REDIRECT_FIELD_NAME) or resolve_url(settings.LOGIN_REDIRECT_URL)
+
 
 @anonymous_required
 def login(request, *args, **kwargs):
@@ -18,7 +20,9 @@ def login(request, *args, **kwargs):
     if shop:
         return authenticate(request, *args, **kwargs)
 
-    return render(request, "shopify_auth/login.html")
+    return render(request, "shopify_auth/login.html", context_instance = RequestContext(request, {
+        'SHOPIFY_APP_NAME': settings.SHOPIFY_APP_NAME
+    }))
 
 @anonymous_required
 def authenticate(request, *args, **kwargs):
