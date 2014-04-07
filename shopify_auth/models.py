@@ -1,4 +1,5 @@
-from django.conf import settings
+import shopify
+
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
@@ -37,6 +38,10 @@ class AbstractShopUser(AbstractBaseUser):
     objects = ShopUserManager()
 
     USERNAME_FIELD  = 'myshopify_domain'
+
+    @property
+    def session(self):
+        return shopify.Session.temp(self.myshopify_domain, self.token)
 
     def get_full_name(self):
         return self.myshopify_domain
