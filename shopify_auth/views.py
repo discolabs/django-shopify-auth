@@ -24,6 +24,7 @@ def login(request, *args, **kwargs):
         'SHOPIFY_APP_NAME': settings.SHOPIFY_APP_NAME
     }))
 
+
 @anonymous_required
 def authenticate(request, *args, **kwargs):
     shop = request.REQUEST.get('shop')
@@ -33,9 +34,8 @@ def authenticate(request, *args, **kwargs):
 
     if shop:
         redirect_uri = request.build_absolute_uri(reverse('shopify_auth.views.finalize'))
-        shopify_session = shopify.Session(shop)
         scope = settings.SHOPIFY_APP_API_SCOPE
-        permission_url = shopify_session.create_permission_url(scope, redirect_uri)
+        permission_url = shopify.Session(shop.strip()).create_permission_url(scope, redirect_uri)
 
         if settings.SHOPIFY_APP_IS_EMBEDDED:
             # Embedded Apps should use a Javascript redirect.
@@ -48,6 +48,7 @@ def authenticate(request, *args, **kwargs):
 
     return_address = get_return_address(request)
     return HttpResponseRedirect(return_address)
+
 
 @anonymous_required
 def finalize(request, *args, **kwargs):
