@@ -27,6 +27,7 @@ setup(
 
     install_requires = [
         'django',
+        'shopify',
     ],
 
     zip_safe = True,
