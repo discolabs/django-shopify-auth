@@ -32,8 +32,8 @@ class ShopUserManager(BaseUserManager):
 
 
 class AbstractShopUser(AbstractBaseUser):
-    myshopify_domain  = models.CharField(max_length = 255, unique = True)
-    token             = models.CharField(max_length = 32)
+    myshopify_domain  = models.CharField(max_length = 255, unique = True, editable = False)
+    token             = models.CharField(max_length = 32, editable = False)
 
     objects = ShopUserManager()
 
