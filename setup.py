@@ -22,12 +22,12 @@ setup(
 
     requires = [
         'django',
-        'shopify',
+        'ShopifyAPI',
     ],
 
     install_requires = [
         'django',
-        'shopify',
+        'ShopifyAPI',
     ],
 
     zip_safe = True,
