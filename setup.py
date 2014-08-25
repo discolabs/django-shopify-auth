@@ -1,4 +1,4 @@
-from distutils.core import setup
+from setuptools import setup
 
 version = __import__('shopify_auth').__version__
 
@@ -20,14 +20,10 @@ setup(
         'shopify_auth': 'shopify_auth',
     },
 
-    requires = [
-        'django',
-        'ShopifyAPI',
-    ],
-
     install_requires = [
-        'django',
-        'ShopifyAPI',
+        'django >=1.6.5, <1.7',
+        'ShopifyAPI >=2.1.0',
+        'setuptools >=5.7',
     ],
 
     zip_safe = True,

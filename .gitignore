@@ -1,5 +1,6 @@
-*.idea
-*.log
-*.pot
+.idea
 *.pyc
-local_settings.py
+MANIFEST
+build
+dist
+django_shopify_auth.egg-info

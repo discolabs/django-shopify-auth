@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
 
-VERSION     = (0, 1, 4)
+VERSION     = (0, 1, 5)
 __version__ = '.'.join(map(str, VERSION))
 __author__  = 'Gavin Ballard'
 
