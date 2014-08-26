@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 version = __import__('shopify_auth').__version__
 
@@ -12,13 +12,7 @@ setup(
     url = 'https://github.com/discolabs/django-shopify-auth',
     license = 'MIT',
 
-    packages = [
-        'shopify_auth'
-    ],
-
-    package_dir = {
-        'shopify_auth': 'shopify_auth',
-    },
+    packages = find_packages(),
 
     install_requires = [
         'django >=1.6.5, <1.7',
