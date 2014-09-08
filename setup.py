@@ -15,9 +15,13 @@ setup(
     packages = find_packages(),
 
     install_requires = [
-        'django >=1.6.5, <1.7',
+        'django >=1.7',
         'ShopifyAPI >=2.1.0',
         'setuptools >=5.7',
+    ],
+
+    tests_require = [
+        'model_mommy >=1.2.1',
     ],
 
     zip_safe = True,
