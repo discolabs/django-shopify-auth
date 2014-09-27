@@ -14,9 +14,7 @@ setup(
 
     packages = find_packages(),
     package_data = {
-        'shopify_auth': [
-            'templates/shopify_auth/*.html'
-        ] 
+        'shopify_auth': ['*.html'] 
     },
 
     install_requires = [
@@ -30,5 +28,6 @@ setup(
     ],
 
     zip_safe = False,
+    include_package_data = True,
     classifiers = [],
 )
