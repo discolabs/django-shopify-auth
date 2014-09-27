@@ -24,6 +24,6 @@ setup(
         'model_mommy >=1.2.1',
     ],
 
-    zip_safe = True,
+    zip_safe = False,
     classifiers = [],
 )
