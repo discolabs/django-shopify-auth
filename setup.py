@@ -13,6 +13,11 @@ setup(
     license = 'MIT',
 
     packages = find_packages(),
+    package_data = {
+        'shopify_auth': [
+            'templates/shopify_auth/*.html'
+        ] 
+    },
 
     install_requires = [
         'django >=1.7',
