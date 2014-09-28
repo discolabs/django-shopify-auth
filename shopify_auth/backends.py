@@ -1,5 +1,6 @@
 from django.contrib.auth.backends import RemoteUserBackend
 
+
 class ShopUserBackend(RemoteUserBackend):
 
     def authenticate(self, myshopify_domain = None, token = None, **kwargs):
