@@ -22,6 +22,8 @@ This project provides one package, `shopify_auth`. We'll add a demo app soon.
 Requirements
 ------------
 
+Django v1.7 or higher is required.
+
 As with the original `shopify_django_app` package, you'll need a [Shopify partner account](http://shopify.com/partners)
 and to have created an app in order to get an API key and secret.
 
@@ -33,12 +35,8 @@ Add this package to your project by either cloning this repository and copying `
 or via `pip` with:
 
 ````
-pip install -e git+https://github.com/gavinballard/django-shopify-auth#egg=django-shopify-auth
+pip install django-shopify-auth
 ````
-
-Be aware if installing via the latest method that this package is in beta and as such its API may change and break.
-Once the API has stablised we'll be releasing to the Python package index and you'll be able to install with a simple
-`pip install django-shopify-auth`.
 
 Once you have the package installed, add `shopify_auth` to your `INSTALLED_APPS` and set the following in your
 `settings.py`:
@@ -63,11 +61,6 @@ If `SHOPIFY_APP_IS_EMBEDDED` is `False`, the normal authentication flow for non-
 Setting `SHOPIFY_APP_DEV_MODE` to `True` allows you to test your apps locally by skipping the external OAuth phase for
 your app. As it means you can log into your app as any store, you should obviously ***never*** set this to `True` in
 production.
-
-Once you've added your settings, all you need to do is make a call to `shopify_auth.initialize()` during startup. In
-Django 1.6 and earlier, the common practice is to make these sorts of initialization calls in `urls.py`, as it's
-initialized after everything in `settings.py` has been loaded but before the app is fully loaded. This will change in
-Django 1.7 with app configurations, but for now we recommend using the `urls.py` method.
 
 
 Questions or Problems?
