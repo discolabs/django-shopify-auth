@@ -41,7 +41,7 @@ Django app inside our project is going to be called `auth_app`.
 If you ever get lost or aren't really sure what to do, you can refer to the [demo app](https://github.com/discolabs/auth_demo).
 
 
-## Installation
+### 1. Install package
 
 Installation is super easy via `pip`:
 
@@ -52,7 +52,7 @@ pip install django-shopify-auth
 Once you have the package installed, add `shopify_auth` to your `INSTALLED_APPS`.
 
 
-## User Model
+### 2. Add custom user model
 
 Because `shopify_auth` makes use of Django's authentication system, it provides a custom authentication backend
 (`shopify_auth.backends.ShopUserBackend`) which allows authentication through Shopify's OAuth flow.
@@ -76,7 +76,7 @@ AUTH_USER_MODEL = 'auth_app.AuthAppShopUser'
 ```
 
 
-## Settings
+### 3. Configure settings
 
 In addition to setting `AUTH_USER_MODEL`, there are a few more required additions to `settings.py`:
 
@@ -114,7 +114,7 @@ your app. As it means you can log into your app as any store, you should obvious
 production.
 
 
-## URL Configuration
+### 4. Configure URL mappings
 
 Include `shopify_auth` URLs in your project's `urls.py`:
 
@@ -131,7 +131,7 @@ urlpatterns = patterns('',
 ```
 
 
-## Adding Views
+### 5. Create application views
 
 Now that you've gotten the configuration out of the way, you can start building your application.
 
@@ -140,7 +140,7 @@ This decorator will check that a user has authenticated through the Shopify OAut
 If they haven't, they'll be redirected to the login screen.
 
 
-## Embedded App SDK
+### 6. Using the Embedded App SDK
 
 If you're using the Embedded App SDK, be aware that the HTML your views return must contained some Javascript in the
 `<head>` to properly frame your app within the Shopify Admin.
