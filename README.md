@@ -148,6 +148,27 @@ If you're using the Embedded App SDK, be aware that the HTML your views return m
 Rather than detail that process here, you should browse through the code made available with the [demo app](https://github.com/discolabs/auth_demo).
 
 
+### 7. Making Shopify API calls
+
+To make Shopify API calls on behalf of a user, we can use the user's `session` property inside a `with` statement:
+
+```python
+def view(request, *args, **kwargs):
+
+    # Get a list of the user's products.
+    with request.user.session:
+        products = shopify.Product.find()
+
+    # ... remaining view code ...
+```
+
+Behind the scenes, using `with request.user.session` sets up a temporary Shopify API session using the OAuth token we
+obtained for that specific user during authentication.
+
+All code wrapped within the `with` statement is executed in the context of the specified user. You should always wrap
+calls to the Shopify API using this pattern.
+
+
 Questions or Problems?
 ----------------------
 
