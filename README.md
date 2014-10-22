@@ -75,13 +75,6 @@ Then make sure that you have the following line or similar in `settings.py`:
 AUTH_USER_MODEL = 'auth_app.AuthAppShopUser'
 ```
 
-Finally, run `migrate` to set up the database tables for your user model (make sure the application you added the custom
-user model to is in your `INSTALLED_APPS` first):
-
-```shell
-> python manage.py migrate
-```
-
 
 ### 3. Configure settings
 
@@ -119,6 +112,12 @@ If `SHOPIFY_APP_IS_EMBEDDED` is `False`, the normal authentication flow for non-
 Setting `SHOPIFY_APP_DEV_MODE` to `True` allows you to test your apps locally by skipping the external OAuth phase for
 your app. As it means you can log into your app as any store, you should obviously ***never*** set this to `True` in
 production.
+
+Now that all of the settings are configured, you can run `migrate` to set up the database for your new user model:
+
+```shell
+> python manage.py migrate
+```
 
 
 ### 4. Configure URL mappings
