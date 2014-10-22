@@ -45,9 +45,9 @@ If you ever get lost or aren't really sure what to do, you can refer to the [dem
 
 Installation is super easy via `pip`:
 
-````
-pip install django-shopify-auth
-````
+```shell
+> pip install django-shopify-auth
+```
 
 Once you have the package installed, add `shopify_auth` to your `INSTALLED_APPS`.
 
@@ -73,6 +73,13 @@ Then make sure that you have the following line or similar in `settings.py`:
 
 ```python
 AUTH_USER_MODEL = 'auth_app.AuthAppShopUser'
+```
+
+Finally, run `migrate` to set up the database tables for your user model (make sure the application you added the custom
+user model to is in your `INSTALLED_APPS` first):
+
+```shell
+> python manage.py migrate
 ```
 
 
@@ -139,13 +146,38 @@ All views inside your application should be decorated with `@login_required`.
 This decorator will check that a user has authenticated through the Shopify OAuth flow.
 If they haven't, they'll be redirected to the login screen.
 
+```python
+from django.shortcuts import render
+from shopify_auth.decorators import login_required
+
+@login_required
+def home(request, *args, **kwargs):
+    return render(request, "my_app/home.html")
+```
+
 
 ### 6. Using the Embedded App SDK
 
 If you're using the Embedded App SDK, be aware that the HTML your views return must contained some Javascript in the
 `<head>` to properly frame your app within the Shopify Admin.
 
-Rather than detail that process here, you should browse through the code made available with the [demo app](https://github.com/discolabs/auth_demo).
+Generally, all pages you'd like embedded in the Shopify Admin should contain something like this in `<head>`:
+
+```html
+<script type="text/javascript" src="https://cdn.shopify.com/s/assets/external/app.js"></script>
+<script type="text/javascript">
+    ShopifyApp.init({
+        apiKey: '{{ SHOPIFY_APP_API_KEY }}',
+        shopOrigin: 'https://{{ user.myshopify_domain }}'
+    });
+    ShopifyApp.ready(function() {
+        ShopifyApp.Bar.initialize({
+            title: '{{ SHOPIFY_APP_NAME }}',
+            buttons: {}
+        });
+    });
+</script>
+```
 
 
 ### 7. Making Shopify API calls
@@ -171,6 +203,9 @@ calls to the Shopify API using this pattern.
 
 Questions or Problems?
 ----------------------
+
+Browse through the code for the demo app:
+<https://github.com/discolabs/auth_demo>
 
 Read up on the possible API calls:
 <http://api.shopify.com>
