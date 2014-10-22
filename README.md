@@ -94,6 +94,17 @@ AUTHENTICATION_BACKENDS = (
     'shopify_auth.backends.ShopUserBackend',
 )
 
+# Use the Shopify Auth authentication backend
+AUTHENTICATION_BACKENDS = (
+    'shopify_auth.backends.ShopUserBackend',
+)
+
+# Add the Shopify Auth template context processor to the list of processors.
+# Note that this assumes you've defined TEMPLATE_CONTEXT_PROCESSORS earlier in your settings.
+TEMPLATE_CONTEXT_PROCESSORS += (
+    'shopify_auth.context_processors.shopify_auth',
+)
+
 # Use the Shopify Auth user model.
 AUTH_USER_MODEL = 'auth_app.AuthAppShopUser'
 
