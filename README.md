@@ -19,6 +19,10 @@ differences:
 This project provides one package, `shopify_auth`.
 A demonstration Django project using this package is available [here](https://github.com/discolabs/auth_demo).
 
+If you'd like a detailed breakdown of how to set up an app from scratch using this package, I've recorded a a short
+series of [five minute screencasts](http://gavinballard.com/shopify-app-in-15-minutes-with-django/) showing how to get
+an app using `django-shopify-auth` up and running in under 15 minutes.
+
 
 Requirements
 ------------
