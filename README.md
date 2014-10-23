@@ -89,12 +89,7 @@ SHOPIFY_APP_API_SCOPE = ['read_products', 'read_orders']
 SHOPIFY_APP_IS_EMBEDDED = True
 SHOPIFY_APP_DEV_MODE = False
 
-# Use the Shopify Auth authentication backend
-AUTHENTICATION_BACKENDS = (
-    'shopify_auth.backends.ShopUserBackend',
-)
-
-# Use the Shopify Auth authentication backend
+# Use the Shopify Auth authentication backend as the sole authentication backend.
 AUTHENTICATION_BACKENDS = (
     'shopify_auth.backends.ShopUserBackend',
 )
