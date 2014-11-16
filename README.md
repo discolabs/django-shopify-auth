@@ -187,6 +187,7 @@ Generally, all pages you'd like embedded in the Shopify Admin should contain som
     });
 </script>
 ```
+Recent versions of Django's `startproject` include `django.middleware.clickjacking.XFrameOptionsMiddleware` in `settings.py`. This will prevent pages from being loaded in iframes, which means your app pages will never display in the Shopify admin. This middleware should be commented out, or admin page views should use the `@xframe_options_exempt` decorator.
 
 
 ### 7. Making Shopify API calls
