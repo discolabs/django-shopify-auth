@@ -228,3 +228,9 @@ Ask technical questions on Stack Overflow:
 
 Email me:
 [gavin@gavinballard.com](mailto:gavin@gavinballard.com)
+
+
+Release History
+---------------
+
+Refer to the [change log](https://github.com/discolabs/django-shopify-auth/blob/master/CHANGELOG.md) for a full list of changes.
