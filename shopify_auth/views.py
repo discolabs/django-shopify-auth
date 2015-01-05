@@ -1,3 +1,4 @@
+import urllib
 import shopify
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, resolve_url
@@ -59,6 +60,8 @@ def finalize(request, *args, **kwargs):
         shopify_session.request_token(request.REQUEST)
     except:
         login_url = reverse('shopify_auth.views.login')
+        if shop:
+            login_url += '?' + urllib.urlencode({'shop': shop})
         return HttpResponseRedirect(login_url)
 
     # Attempt to authenticate the user and log them in.
