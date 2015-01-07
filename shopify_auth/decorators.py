@@ -32,9 +32,9 @@ def login_required(f, redirect_field_name = REDIRECT_FIELD_NAME, login_url = Non
     """
     Decorator that wraps django.contrib.auth.decorators.login_required, but supports extracting Shopify's authentication
     query parameters (`shop`, `timestamp`, and `signature`) and passing them on to the login URL (instead of just
-    wrapping them up and encoding them in to the'next' parameter).
+    wrapping them up and encoding them in to the `next` parameter).
     
-    This is useful for ensure that users are automatically logged on when they first access a page through the Shopify
+    This is useful for ensuring that users are automatically logged on when they first access a page through the Shopify
     Admin, which passes these parameters with every page request to an embedded app.
     """    
     
