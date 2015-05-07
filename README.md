@@ -1,6 +1,8 @@
 Django Shopify Auth
 ===================
 
+[![PyPI version](https://badge.fury.io/py/django-shopify-auth.svg)](http://badge.fury.io/py/django-shopify-auth)
+
 This Django package makes it easy to integrate Shopify authentication into your Django app. It shares some similarities
 with the [shopify_django_app](https://github.com/Shopify/shopify_django_app) project, but with a couple of key
 differences:
