@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 No unreleased changes.
 
+## 0.4.0 - 2015-05-07
+### Changed
+- Updated ShopifyAPI dependency to v2.1.2
+
 ## 0.3.1 - 2014-12-06
 ### Added
 - This new-format CHANGELOG, based on http://keepachangelog.com
