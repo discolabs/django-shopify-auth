@@ -1,4 +1,5 @@
 .idea
+.python-version
 *.pyc
 MANIFEST
 build
