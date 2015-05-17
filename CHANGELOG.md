@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 No unreleased changes.
 
+## 0.4.2 - 2015-05-17
+### Changed
+- More Python 3 support
+
 ## 0.4.1 - 2015-05-17
 ### Changed
 - Improve Python 3 support

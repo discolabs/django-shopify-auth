@@ -1,3 +1,5 @@
+import six
+
 from functools import wraps
 
 from django.contrib.auth.decorators import user_passes_test
@@ -44,7 +46,7 @@ def login_required(f, redirect_field_name = REDIRECT_FIELD_NAME, login_url = Non
             return f(request, *args, **kwargs)
         
         # Extract the Shopify-specific authentication parameters from the current request.
-        shopify_params = dict([(k, v) for k, v in request.GET.iteritems() if k in ['shop', 'timestamp', 'signature', 'hmac']])
+        shopify_params = dict([(k, v) for k, v in six.iteritems(request.GET) if k in ['shop', 'timestamp', 'signature', 'hmac']])
                         
         # Get the login URL.
         resolved_login_url = force_str(resolve_url(login_url or settings.LOGIN_URL))
