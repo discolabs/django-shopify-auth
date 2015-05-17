@@ -1,6 +1,7 @@
 .idea
 .python-version
 *.pyc
+.eggs
 MANIFEST
 build
 dist
