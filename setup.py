@@ -21,6 +21,7 @@ setup(
         'django >=1.7',
         'ShopifyAPI >=2.1.2',
         'setuptools >=5.7',
+        'six >=1.9.0',
     ],
 
     tests_require = [
