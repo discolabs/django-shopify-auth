@@ -1,0 +1,12 @@
+language: python
+
+# Test with both Python 2.7 and 3.4
+python:
+  - "2.7"
+  - "3.4"
+
+# Install dependencies.
+install: "pip install -r requirements.txt"
+
+# Run tests.
+script: 'python test.py'
