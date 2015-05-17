@@ -14,7 +14,9 @@ settings.configure(
         'django.contrib.contenttypes',
         'shopify_auth',
     ),
-    MIDDLEWARE_CLASSES = ()
+    MIDDLEWARE_CLASSES = (),
+    SHOPIFY_APP_API_KEY = 'test-api-key',
+    SHOPIFY_APP_API_SECRET = 'test-api-secret',
 )
 
 django.setup()
