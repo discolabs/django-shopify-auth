@@ -19,7 +19,7 @@ setup(
 
     install_requires = [
         'django >=1.7',
-        'ShopifyAPI >=2.1.2',
+        'ShopifyAPI >=2.1.5',
         'setuptools >=5.7',
         'six >=1.9.0',
     ],
