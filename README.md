@@ -29,16 +29,14 @@ an app using `django-shopify-auth` up and running in under 15 minutes.
 
 Requirements
 ------------
-
 Django v1.7 or higher is required.
 
 As with the original `shopify_django_app` package, you'll need a [Shopify partner account](http://shopify.com/partners)
 and to have created an app in order to get an API key and secret.
 
 
-Installation & Setup
---------------------
-
+Package Installation and Setup
+------------------------------
 There are a few moving parts to set up, but hopefully the following instructions will make things straightforward.
 
 We're assuming in this setup that you're using a standard Django project layout (the sort that's created with the
@@ -49,7 +47,6 @@ If you ever get lost or aren't really sure what to do, you can refer to the [dem
 
 
 ### 1. Install package
-
 Installation is super easy via `pip`:
 
 ```shell
@@ -60,7 +57,6 @@ Once you have the package installed, add `shopify_auth` to your `INSTALLED_APPS`
 
 
 ### 2. Add custom user model
-
 Because `shopify_auth` makes use of Django's authentication system, it provides a custom authentication backend
 (`shopify_auth.backends.ShopUserBackend`) which allows authentication through Shopify's OAuth flow.
 
@@ -84,7 +80,6 @@ AUTH_USER_MODEL = 'auth_app.AuthAppShopUser'
 
 
 ### 3. Configure settings
-
 In addition to setting `AUTH_USER_MODEL`, there are a few more required additions to `settings.py`:
 
 ```python
@@ -112,6 +107,11 @@ AUTH_USER_MODEL = 'auth_app.AuthAppShopUser'
 
 # Set the login redirect URL to the "home" page for your app (where to go after logging on).
 LOGIN_REDIRECT_URL = '/'
+
+# Set secure proxy header to allow proper detection of secure URLs behind a proxy.
+# This ensures that correct 'https' URLs are generated when our Django app is running behind a proxy like nginx, or is
+# being tunneled (by ngrok, for example).
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ```
 
 Note that in the example above, the application API key and API secret are pulled from environment settings, which is a
@@ -134,7 +134,6 @@ Now that all of the settings are configured, you can run `migrate` to set up the
 
 
 ### 4. Configure URL mappings
-
 Include `shopify_auth` URLs in your project's `urls.py`:
 
 ```python
@@ -151,7 +150,6 @@ urlpatterns = patterns('',
 
 
 ### 5. Create application views
-
 Now that you've gotten the configuration out of the way, you can start building your application.
 
 All views inside your application should be decorated with `@login_required`.
@@ -169,7 +167,6 @@ def home(request, *args, **kwargs):
 
 
 ### 6. Using the Embedded App SDK
-
 If you're using the Embedded App SDK, be aware that the HTML your views return must contained some Javascript in the
 `<head>` to properly frame your app within the Shopify Admin.
 
@@ -200,7 +197,6 @@ all of your app views make use of the `@xframe_options_exempt` decorator.
 
 
 ### 7. Making Shopify API calls
-
 To make Shopify API calls on behalf of a user, we can use the user's `session` property inside a `with` statement:
 
 ```python
@@ -218,6 +214,22 @@ obtained for that specific user during authentication.
 
 All code wrapped within the `with` statement is executed in the context of the specified user. You should always wrap
 calls to the Shopify API using this pattern.
+
+
+Partner Application Setup
+-------------------------
+In addition to getting the package up and running in your local Django project, you'll need to configure your
+application via the Shopify Partner dashboard. The first part of my brief [screencast series](http://gavinballard.com/shopify-app-in-15-minutes-with-django/)
+walks you through the setup of a Shopify Partner application.
+  
+An ***important omission*** from the screencast series is that Shopify now requires applications to provide a list of
+authorized "Redirection URLs" from the partner dashboard for enhanced security (this wasn't a required setting at the
+time of recording the screencasts).
+
+To avoid getting an OAuth error while customers try to install your application, make sure your application's settings
+include the absolute URL to `/login/finalize/` (including the trailing slash) in their whitelisted URLs. For example,
+if your application resides at `https://myapp.example.com`, then you should include
+`https://myapp.example.com/login/finalize/` in the "Redirection URL" section of your application settings. 
 
 
 Questions or Problems?
