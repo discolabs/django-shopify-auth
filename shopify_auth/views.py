@@ -1,4 +1,6 @@
 import shopify
+import signals
+
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, resolve_url
 from django.core.urlresolvers import reverse
@@ -65,6 +67,8 @@ def finalize(request, *args, **kwargs):
     user = auth.authenticate(myshopify_domain = shopify_session.url, token = shopify_session.token)
     if user:
         auth.login(request, user)
+
+    signals.oauth_finalize.send(sender=None, request=request, dispatch_uid=shop)
 
     return_address = get_return_address(request)
     return HttpResponseRedirect(return_address)
