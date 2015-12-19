@@ -26,7 +26,7 @@ matrix:
 
 
 # Install dependencies.
-install: 
+install:
   - pip install -q $DJANGO
   - pip install -r requirements.txt
 
