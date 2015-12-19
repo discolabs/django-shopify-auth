@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 No unreleased changes.
 
+## 0.4.3 - 2015-12-19
+### Changed
+- Django 1.9 compatibility
+- Better PEP8 conformity
+
 ## 0.4.2 - 2015-05-17
 ### Changed
 - More Python 3 support
