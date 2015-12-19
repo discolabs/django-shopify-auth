@@ -1,7 +1,9 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
-urlpatterns = patterns('',
-  url(r'^finalize/$',     'shopify_auth.views.finalize'),
-  url(r'^authenticate/$', 'shopify_auth.views.authenticate'),
-  url(r'^$',              'shopify_auth.views.login'),
-)
+from . import views
+
+urlpatterns = [
+  url(r'^finalize/$',     views.finalize),
+  url(r'^authenticate/$', views.authenticate),
+  url(r'^$',              views.login),
+]
