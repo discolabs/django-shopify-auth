@@ -10,12 +10,14 @@ from .decorators import anonymous_required
 
 
 def get_return_address(request):
-    return request.REQUEST.get(auth.REDIRECT_FIELD_NAME) or resolve_url(settings.LOGIN_REDIRECT_URL)
+    return request.GET.get(auth.REDIRECT_FIELD_NAME) or resolve_url(settings.LOGIN_REDIRECT_URL)
 
 
 @anonymous_required
 def login(request, *args, **kwargs):
-    shop = request.REQUEST.get('shop')
+    # The `shop` parameter may be passed either directly in query parameters, or
+    # as a result of submitting the login form.
+    shop = request.POST.get('shop', request.GET.get('shop'))
 
     # If the shop parameter has already been provided, attempt to authenticate immediately.
     if shop:
@@ -28,7 +30,7 @@ def login(request, *args, **kwargs):
 
 @anonymous_required
 def authenticate(request, *args, **kwargs):
-    shop = request.REQUEST.get('shop')
+    shop = request.GET.get('shop')
 
     if settings.SHOPIFY_APP_DEV_MODE:
         return finalize(request, token='00000000000000000000000000000000', *args, **kwargs)
@@ -53,11 +55,11 @@ def authenticate(request, *args, **kwargs):
 
 @anonymous_required
 def finalize(request, *args, **kwargs):
-    shop = request.REQUEST.get('shop')
+    shop = request.GET.get('shop')
 
     try:
         shopify_session = shopify.Session(shop, token=kwargs.get('token'))
-        shopify_session.request_token(request.REQUEST)
+        shopify_session.request_token(request.GET)
     except:
         login_url = reverse('shopify_auth.views.login')
         return HttpResponseRedirect(login_url)
