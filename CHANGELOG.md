@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 No unreleased changes.
 
+## 0.4.5 - 2015-12-23
+### Changed
+- Include templates in package
+
 ## 0.4.4 - 2015-12-19
 ### Changed
 - *Actual* Django 1.9 compatibility
