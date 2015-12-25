@@ -30,7 +30,7 @@ def login(request, *args, **kwargs):
 
 @anonymous_required
 def authenticate(request, *args, **kwargs):
-    shop = request.GET.get('shop')
+    shop = request.POST.get('shop', request.GET.get('shop'))
 
     if settings.SHOPIFY_APP_DEV_MODE:
         return finalize(request, token='00000000000000000000000000000000', *args, **kwargs)
@@ -55,7 +55,7 @@ def authenticate(request, *args, **kwargs):
 
 @anonymous_required
 def finalize(request, *args, **kwargs):
-    shop = request.GET.get('shop')
+    shop = request.POST.get('shop', request.GET.get('shop'))
 
     try:
         shopify_session = shopify.Session(shop, token=kwargs.get('token'))
