@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 No unreleased changes.
 
+## 0.4.6 - 2015-12-25
+### Changed
+- Fix OAuth regression
+
 ## 0.4.5 - 2015-12-23
 ### Changed
 - Include templates in package
