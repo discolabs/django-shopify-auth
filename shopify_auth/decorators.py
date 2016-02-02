@@ -1,4 +1,3 @@
-import six
 
 from functools import wraps
 
@@ -48,7 +47,7 @@ def login_required(f, redirect_field_name=REDIRECT_FIELD_NAME, login_url=None):
         # Extract the Shopify-specific authentication parameters from the current request.
         shopify_params = {
             k: v
-            for k, v in six.iteritems(request.GET)
+            for k, v in request.GET.iteritems()
             if k in {'shop', 'timestamp', 'signature', 'hmac'}
         }
 
