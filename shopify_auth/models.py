@@ -7,14 +7,14 @@ from django.utils.encoding import python_2_unicode_compatible
 
 class ShopUserManager(BaseUserManager):
 
-    def create_user(self, myshopify_domain, domain, password=None):
+    def create_user(self, myshopify_domain, password=None):
         """
-        Creates and saves a ShopUser with the given domains and password.
+        Creates and saves a ShopUser with the given domain and password.
         """
         if not myshopify_domain:
             raise ValueError('ShopUsers must have a myshopify domain')
 
-        user = self.model(myshopify_domain=myshopify_domain, domain=domain)
+        user = self.model(myshopify_domain=myshopify_domain)
 
         # Never want to be able to log on externally.
         # Authentication will be taken care of by Shopify OAuth.
@@ -22,11 +22,11 @@ class ShopUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, myshopify_domain, domain, password):
+    def create_superuser(self, myshopify_domain, password):
         """
         Creates and saves a ShopUser with the given domains and password.
         """
-        return self.create_user(myshopify_domain, domain, password)
+        return self.create_user(myshopify_domain, password)
 
 
 @python_2_unicode_compatible
