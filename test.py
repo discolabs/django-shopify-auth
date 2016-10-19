@@ -34,7 +34,7 @@ settings.configure(
     SHOPIFY_APP_NAME='Test App',
     SHOPIFY_APP_API_KEY='test-api-key',
     SHOPIFY_APP_API_SECRET='test-api-secret',
-    SHOPIFY_APP_API_SCOPE='read_products',
+    SHOPIFY_APP_API_SCOPE=['read_products'],
     SHOPIFY_APP_IS_EMBEDDED=True,
     SHOPIFY_APP_DEV_MODE=False,
 )
