@@ -29,7 +29,8 @@ an app using `django-shopify-auth` up and running in under 15 minutes.
 
 Requirements
 ------------
-Django v1.7 or higher is required.
+Django v1.7 - v1.9 is required. Django 1.10 support is not guaranteed but things
+should work.
 
 As with the original `shopify_django_app` package, you'll need a [Shopify partner account](http://shopify.com/partners)
 and to have created an app in order to get an API key and secret.
