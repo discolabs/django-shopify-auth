@@ -24,6 +24,10 @@ matrix:
       python: "3.3"
     - env: DJANGO="Django<1.10"
       python: "pypy3"
+    - env: DJANGO="Django<1.11"
+      python: "3.3"
+    - env: DJANGO="Django<1.11"
+      python: "pypy3"
 
 
 # Install dependencies.
