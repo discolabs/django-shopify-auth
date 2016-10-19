@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 No unreleased changes.
 
+## 0.4.7 - 2016-10-19
+### Added
+- Django 1.10 support
+
+### Removed
+- Dependence on `six` package
+
 ## 0.4.6 - 2015-12-25
 ### Changed
 - Fix OAuth regression
