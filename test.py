@@ -24,6 +24,12 @@ settings.configure(
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
     ),
+    TEMPLATES=[
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'APP_DIRS': True
+        }
+    ],
     ROOT_URLCONF = 'shopify_auth.urls',
     SHOPIFY_APP_NAME='Test App',
     SHOPIFY_APP_API_KEY='test-api-key',
