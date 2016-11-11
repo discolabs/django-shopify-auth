@@ -46,9 +46,9 @@ def login_required(f, redirect_field_name=REDIRECT_FIELD_NAME, login_url=None):
 
         # Extract the Shopify-specific authentication parameters from the current request.
         shopify_params = {
-            k: v
-            for k, v in request.GET.iteritems()
-            if k in {'shop', 'timestamp', 'signature', 'hmac'}
+            k: request.GET[k]
+            for k in ['shop', 'timestamp', 'signature', 'hmac']
+            if k in request.GET
         }
 
         # Get the login URL.
