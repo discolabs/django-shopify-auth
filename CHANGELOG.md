@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 No unreleased changes.
 
+## 0.4.8 - 2016-11-11
+### Changed
+- Bugfix with items()/iteritems() dependence in `login_required` decorator
+
 ## 0.4.7 - 2016-10-19
 ### Added
 - Django 1.10 support
