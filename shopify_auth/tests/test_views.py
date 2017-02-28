@@ -15,3 +15,10 @@ class ViewsTestCase(TestCase):
         """
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
+
+    def test_authenticate_view(self):
+        """
+        Test the authenticate view renders correctly with a shop param.
+        """
+        response = self.client.get('/?shop=test.myshopify.com')
+        self.assertContains(response, 'window.top.location.href = "https://test.myshopify.com/admin/oauth/authorize')

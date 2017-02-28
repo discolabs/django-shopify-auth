@@ -43,6 +43,7 @@ def authenticate(request, *args, **kwargs):
         if settings.SHOPIFY_APP_IS_EMBEDDED:
             # Embedded Apps should use a Javascript redirect.
             return render(request, "shopify_auth/iframe_redirect.html", {
+                'shop': shop,
                 'redirect_uri': permission_url
             })
         else:
