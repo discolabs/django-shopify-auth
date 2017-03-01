@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 
 ## Unreleased
+No unreleased changes.
+
+## 0.5.0 - 2017-03-01
 ### Changed
 - Updated authentication redirect for Chrome `postMessage` change
 
