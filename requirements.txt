@@ -1,2 +1,1 @@
-django >=1.7
 ShopifyAPI >=2.1.5
