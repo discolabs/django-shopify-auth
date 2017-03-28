@@ -1,3 +1,3 @@
 django ==1.10.6
 ShopifyAPI >=2.1.5
-certifi==2017.1.23
+certifi==2017.1.23 # This needed when Mac OS runs python 3.x. Ref: https://bugs.python.org/issue28150
