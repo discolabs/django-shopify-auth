@@ -59,7 +59,7 @@ def finalize(request, *args, **kwargs):
     shop = request.POST.get('shop', request.GET.get('shop'))
 
     try:
-        shopify_session = shopify.Session(shop, token=kwargs.get('token'))
+        shopify_session = shopify.Session(shop)
         shopify_session.request_token(request.GET)
     except:
         login_url = reverse(login)
