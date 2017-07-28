@@ -66,7 +66,7 @@ def finalize(request, *args, **kwargs):
         return HttpResponseRedirect(login_url)
 
     # Attempt to authenticate the user and log them in.
-    user = auth.authenticate(myshopify_domain=shopify_session.url, token=shopify_session.token)
+    user = auth.authenticate(request=request, myshopify_domain=shopify_session.url, token=shopify_session.token)
     if user:
         auth.login(request, user)
 
