@@ -26,6 +26,17 @@ If you'd like a detailed breakdown of how to set up an app from scratch using th
 series of [five minute screencasts](http://gavinballard.com/shopify-app-in-15-minutes-with-django/) showing how to get
 an app using `django-shopify-auth` up and running in under 15 minutes.
 
+Package Status
+--------------
+The package author (@gavinballard) is currently in "non-active maintenance" mode.
+I am happy to review and merge pull requests that provide a clear description of
+the problem they solve and provide a thorough test to avoid any regressions, but
+as I don't use Django in my day-to-day Shopify development any more (the last
+version I used with much regularity was Django 1.9) I am not actively working on
+the code.
+
+If you're using this package on a regular basis and feel you'd be a good fit to
+take over active development, please [contact me](https://twitter.com/gavinballard).
 
 Requirements
 ------------
