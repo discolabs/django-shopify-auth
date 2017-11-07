@@ -40,8 +40,8 @@ take over active development, please [contact me](https://twitter.com/gavinballa
 
 Requirements
 ------------
-Django v1.7 - v1.9 is required. Django 1.10 support is not guaranteed but things
-should work.
+Tests are run against Django v1.8, v1.10, and v1.11. This package may work for
+other Django versions but it's not guaranteed.
 
 As with the original `shopify_django_app` package, you'll need a [Shopify partner account](http://shopify.com/partners)
 and to have created an app in order to get an API key and secret.

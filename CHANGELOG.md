@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 No unreleased changes.
 
+## 0.6.0 - 2017-11-07
+### Removed
+- Support for deprecated Django versions 1.7, 1.9
+- Removed Python 3.3 from test matrix
+
 ## 0.5.0 - 2017-03-01
 ### Changed
 - Updated authentication redirect for Chrome `postMessage` change
