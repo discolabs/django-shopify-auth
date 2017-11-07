@@ -34,5 +34,9 @@ class ViewsTestCase(TestCase):
         # Dev mode so token does not need to be valid
         settings.SHOPIFY_APP_DEV_MODE = True
         response = self.client.get('/authenticate/?shop=test.myshopify.com')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
+        self.assertGreater(int(self.client.session['_auth_user_id']), 0)
+        self.assertEqual(self.client.session['_auth_user_backend'], 'shopify_auth.backends.ShopUserBackend')
+        self.assertIsNot(self.client.session['_auth_user_hash'], None)
+
 

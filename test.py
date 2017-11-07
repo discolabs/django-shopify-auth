@@ -12,6 +12,7 @@ settings.configure(
     INSTALLED_APPS=(
         'django.contrib.auth',
         'django.contrib.contenttypes',
+        'django.contrib.sessions',
         'shopify_auth',
     ),
     AUTHENTICATION_BACKENDS=(
