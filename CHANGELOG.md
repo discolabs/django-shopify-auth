@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 No unreleased changes.
 
+## 0.7.0 - 2017-11-24
+### Changed
+- Improved support for later Django versions
+
 ## 0.6.0 - 2017-11-07
 ### Removed
 - Support for deprecated Django versions 1.7, 1.9
