@@ -2,7 +2,7 @@ import shopify
 
 from django.conf import settings
 from django.contrib import auth
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, resolve_url
 
