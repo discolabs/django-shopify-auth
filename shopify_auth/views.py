@@ -1,13 +1,17 @@
 import shopify
 
+from django import VERSION as DJANGO_VERSION
 from django.conf import settings
 from django.contrib import auth
-from django.core.urlresolvers import reverse
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, resolve_url
 
 from .decorators import anonymous_required
 
+if DJANGO_VERSION >= (2, 0, 0):
+    from django.urls import reverse
+else:
+    from django.core.urlresolvers import reverse
 
 def get_return_address(request):
     return request.GET.get(auth.REDIRECT_FIELD_NAME) or resolve_url(settings.LOGIN_REDIRECT_URL)
