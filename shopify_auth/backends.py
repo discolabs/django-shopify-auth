@@ -16,5 +16,5 @@ class ShopUserBackend(RemoteUserBackend):
             return
 
         user.token = token
-        user.save(update_fields=['token'])
+        user.save()
         return user

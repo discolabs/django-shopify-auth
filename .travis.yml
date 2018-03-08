@@ -14,12 +14,12 @@ env:
   - DJANGO="Django<1.9"
   - DJANGO="Django<1.11"
   - DJANGO="Django<2.0"
+  - DJANGO="Django<2.1"
 
 matrix:
   exclude:
     - env: DJANGO="Django<1.11"
       python: "pypy3"
-
 
 # Install dependencies.
 install:

@@ -40,7 +40,7 @@ take over active development, please [contact me](https://twitter.com/gavinballa
 
 Requirements
 ------------
-Tests are run against Django v1.8, v1.10, and v1.11. This package may work for
+Tests are run against Django v1.8, v1.10, v1.11, and v2.0. This package may work for
 other Django versions but it's not guaranteed.
 
 As with the original `shopify_django_app` package, you'll need a [Shopify partner account](http://shopify.com/partners)
@@ -146,7 +146,23 @@ Now that all of the settings are configured, you can run `migrate` to set up the
 
 
 ### 4. Configure URL mappings
+
 Include `shopify_auth` URLs in your project's `urls.py`:
+
+#### Django 2.0
+
+```python
+# urls.py
+from django.urls import include, path
+
+urlpatterns = [
+    path('login/', include('shopify_auth_urls')),
+
+    # ... remaining configuration here ...
+]
+```
+
+#### Earlier versions of Django
 
 ```python
 # urls.py
@@ -157,9 +173,7 @@ urlpatterns = patterns('',
 
     # ... remaining configuration here ...
 )
-
 ```
-
 
 ### 5. Create application views
 Now that you've gotten the configuration out of the way, you can start building your application.

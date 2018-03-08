@@ -2,7 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unreleased
-No unreleased changes.
+### Changed
+- Added support for Django 2.0.
 
 ## 0.7.0 - 2017-11-24
 ### Changed
