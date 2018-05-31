@@ -156,7 +156,7 @@ Include `shopify_auth` URLs in your project's `urls.py`:
 from django.urls import include, path
 
 urlpatterns = [
-    path('login/', include('shopify_auth_urls')),
+    path('login/', include('shopify_auth.urls')),
 
     # ... remaining configuration here ...
 ]
