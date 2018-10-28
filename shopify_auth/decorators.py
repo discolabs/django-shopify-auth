@@ -56,6 +56,8 @@ def login_required(f, redirect_field_name=REDIRECT_FIELD_NAME, login_url=None):
         if is_authenticated(request.user):
             return f(request, *args, **kwargs)
 
+        request.session['shopify.cookies_persist'] = True
+
         # Extract the Shopify-specific authentication parameters from the current request.
         shopify_params = {
             k: request.GET[k]

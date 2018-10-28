@@ -28,8 +28,13 @@ class ViewsTestCase(TestCase):
         response = self.client.post('/authenticate/')
         self.assertEqual(response.status_code, 302)
 
+        session = self.client.session
+        session['shopify.top_level_oauth'] = True
+        session['shopify.cookies_persist'] = True
+        session.save()
+
         response = self.client.get('/?shop=test.myshopify.com')
-        self.assertContains(response, 'window.top.location.href = "https://test.myshopify.com/admin/oauth/authorize')
+        self.assertRedirects(response, 'https://test.myshopify.com/admin/oauth/authorize?client_id=test-api-key&scope=read_products&redirect_uri=http%3A%2F%2Ftestserver%2Ffinalize%2F', fetch_redirect_response=False)
 
         # Dev mode so token does not need to be valid
         settings.SHOPIFY_APP_DEV_MODE = True
@@ -38,5 +43,3 @@ class ViewsTestCase(TestCase):
         self.assertGreater(int(self.client.session['_auth_user_id']), 0)
         self.assertEqual(self.client.session['_auth_user_backend'], 'shopify_auth.backends.ShopUserBackend')
         self.assertIsNot(self.client.session['_auth_user_hash'], None)
-
-

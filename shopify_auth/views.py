@@ -16,6 +16,19 @@ else:
 def get_return_address(request):
     return request.GET.get(auth.REDIRECT_FIELD_NAME) or resolve_url(settings.LOGIN_REDIRECT_URL)
 
+def authenticate_at_top_level(request, shop):
+    request.session['shopify.top_level_oauth'] = True
+    return render(request, 'shopify_auth/iframe_redirect.html', {
+        'shop': shop,
+        'redirect_uri': request.build_absolute_uri(reverse(authenticate) + '?shop=' + shop)
+    })
+
+def request_cookies(request, shop):
+    request.session['shopify.cookies_persist'] = True
+    return render(request, 'shopify_auth/iframe_redirect.html', {
+        'shop': shop,
+        'redirect_uri': request.build_absolute_uri(reverse(enable_cookies) + '?shop=' + shop)
+    })
 
 @anonymous_required
 def login(request, *args, **kwargs):
@@ -23,13 +36,20 @@ def login(request, *args, **kwargs):
     # as a result of submitting the login form.
     shop = request.POST.get('shop', request.GET.get('shop'))
 
-    # If the shop parameter has already been provided, attempt to authenticate immediately.
-    if shop:
-        return authenticate(request, *args, **kwargs)
+    if not shop:
+        return render(request, 'shopify_auth/login.html', {
+            'SHOPIFY_APP_NAME': settings.SHOPIFY_APP_NAME
+        })
 
-    return render(request, "shopify_auth/login.html", {
-        'SHOPIFY_APP_NAME': settings.SHOPIFY_APP_NAME
-    })
+    # If the shop parameter has already been provided, attempt to authenticate immediately.
+
+    if request.session.get('shopify.cookies_persist'):
+        if request.session.get('shopify.top_level_oauth'):
+            return authenticate(request, *args, **kwargs)
+        else:
+            return authenticate_at_top_level(request, shop)
+    else:
+        return request_cookies(request, shop)
 
 
 @anonymous_required
@@ -44,9 +64,9 @@ def authenticate(request, *args, **kwargs):
         scope = settings.SHOPIFY_APP_API_SCOPE
         permission_url = shopify.Session(shop.strip()).create_permission_url(scope, redirect_uri)
 
-        if settings.SHOPIFY_APP_IS_EMBEDDED:
-            # Embedded Apps should use a Javascript redirect.
-            return render(request, "shopify_auth/iframe_redirect.html", {
+        if settings.SHOPIFY_APP_IS_EMBEDDED and not request.session.get('shopify.top_level_oauth'):
+            # Embedded Apps should use a Javascript redirect. With exception when handling ITP 2.0 protection.
+            return render(request, 'shopify_auth/iframe_redirect.html', {
                 'shop': shop,
                 'redirect_uri': permission_url
             })
@@ -63,6 +83,11 @@ def finalize(request, *args, **kwargs):
     shop = request.POST.get('shop', request.GET.get('shop'))
 
     try:
+        del request.session['shopify.top_level_oauth']
+    except KeyError:
+        pass
+
+    try:
         shopify_session = shopify.Session(shop, token=kwargs.get('token'))
         shopify_session.request_token(request.GET)
     except:
@@ -76,3 +101,9 @@ def finalize(request, *args, **kwargs):
 
     return_address = get_return_address(request)
     return HttpResponseRedirect(return_address)
+
+def enable_cookies(request, *args, **kwargs):
+    shop = request.POST.get('shop', request.GET.get('shop'))
+    return render(request, 'shopify_auth/enable_cookies.html', {
+        'shop': shop,
+    })
