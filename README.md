@@ -124,6 +124,11 @@ LOGIN_REDIRECT_URL = '/'
 # This ensures that correct 'https' URLs are generated when our Django app is running behind a proxy like nginx, or is
 # being tunneled (by ngrok, for example).
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# For Django>=2.1, if you are using ngrok or other tools for tunnelling/proxying when developing, 
+# we must explicitly allow cookies from different sites or the auth redirection after the login will
+# result in an infinite loop (session cannot be read from cookies)
+SESSION_COOKIE_SAMESITE = False
 ```
 
 Note that in the example above, the application API key and API secret are pulled from environment settings, which is a
