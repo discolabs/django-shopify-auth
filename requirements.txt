@@ -1,2 +1,2 @@
 django >=1.7
-ShopifyAPI >=2.1.5
+ShopifyAPI >=5.0.1

@@ -100,6 +100,8 @@ SHOPIFY_APP_NAME = 'Your App Name'
 SHOPIFY_APP_API_KEY = os.environ.get('SHOPIFY_APP_API_KEY')
 SHOPIFY_APP_API_SECRET = os.environ.get('SHOPIFY_APP_API_SECRET')
 SHOPIFY_APP_API_SCOPE = ['read_products', 'read_orders']
+# Find API version to pin at https://help.shopify.com/en/api/versioning
+SHOPIFY_APP_API_VERSION = "0000-00"
 SHOPIFY_APP_IS_EMBEDDED = True
 SHOPIFY_APP_DEV_MODE = False
 
