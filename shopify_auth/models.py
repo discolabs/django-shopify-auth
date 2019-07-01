@@ -41,7 +41,7 @@ class AbstractShopUser(AbstractBaseUser):
 
     @property
     def session(self):
-        return shopify.Session.temp(self.myshopify_domain, settings.SHOPIFY_APP_API_VERSION, self.token)
+        return shopify.Session.temp(self.myshopify_domain, getattr(settings, 'SHOPIFY_APP_API_VERSION', 'unstable'), self.token)
 
     def get_full_name(self):
         return self.myshopify_domain
