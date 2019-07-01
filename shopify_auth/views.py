@@ -42,7 +42,7 @@ def authenticate(request, *args, **kwargs):
     if shop:
         redirect_uri = request.build_absolute_uri(reverse(finalize))
         scope = settings.SHOPIFY_APP_API_SCOPE
-        permission_url = shopify.Session(shop.strip()).create_permission_url(scope, redirect_uri)
+        permission_url = shopify.Session(shop.strip(), settings.SHOPIFY_APP_API_VERSION).create_permission_url(scope, redirect_uri)
 
         if settings.SHOPIFY_APP_IS_EMBEDDED:
             # Embedded Apps should use a Javascript redirect.
@@ -63,7 +63,7 @@ def finalize(request, *args, **kwargs):
     shop = request.POST.get('shop', request.GET.get('shop'))
 
     try:
-        shopify_session = shopify.Session(shop, token=kwargs.get('token'))
+        shopify_session = shopify.Session(shop, settings.SHOPIFY_APP_API_VERSION, token=kwargs.get('token'))
         shopify_session.request_token(request.GET)
     except:
         login_url = reverse(login)

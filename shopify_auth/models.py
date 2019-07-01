@@ -1,5 +1,6 @@
 import shopify
 
+from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
@@ -40,7 +41,7 @@ class AbstractShopUser(AbstractBaseUser):
 
     @property
     def session(self):
-        return shopify.Session.temp(self.myshopify_domain, self.token)
+        return shopify.Session.temp(self.myshopify_domain, settings.SHOPIFY_APP_API_VERSION, self.token)
 
     def get_full_name(self):
         return self.myshopify_domain
