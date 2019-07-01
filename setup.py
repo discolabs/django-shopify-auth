@@ -7,6 +7,7 @@ setup(
     version=version,
     description='A simple package for adding Shopify authentication to Django apps.',
     long_description=open('README.md').read(),
+    long_description_content_type='text/markdown',
     author='Gavin Ballard',
     author_email='gavin@discolabs.com',
     url='https://github.com/discolabs/django-shopify-auth',
