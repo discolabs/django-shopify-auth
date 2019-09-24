@@ -13,8 +13,10 @@ if DJANGO_VERSION >= (2, 0, 0):
 else:
     from django.core.urlresolvers import reverse
 
+SESSION_REDIRECT_FIELD_NAME = 'shopify_auth_next'
+
 def get_return_address(request):
-    return request.GET.get(auth.REDIRECT_FIELD_NAME) or resolve_url(settings.LOGIN_REDIRECT_URL)
+    return request.session.get(SESSION_REDIRECT_FIELD_NAME) or request.GET.get(auth.REDIRECT_FIELD_NAME) or resolve_url(settings.LOGIN_REDIRECT_URL)
 
 
 @anonymous_required
@@ -40,6 +42,11 @@ def authenticate(request, *args, **kwargs):
         return finalize(request, token='00000000000000000000000000000000', *args, **kwargs)
 
     if shop:
+        # Store return adress so merchant gets where they intended to.
+        return_address_parameter = request.GET.get(auth.REDIRECT_FIELD_NAME)
+        if return_address_parameter:
+            request.session[SESSION_REDIRECT_FIELD_NAME] = return_address_parameter
+
         redirect_uri = request.build_absolute_uri(reverse(finalize))
         scope = settings.SHOPIFY_APP_API_SCOPE
         permission_url = shopify.Session(shop.strip(), getattr(settings, 'SHOPIFY_APP_API_VERSION', 'unstable')).create_permission_url(scope, redirect_uri)
