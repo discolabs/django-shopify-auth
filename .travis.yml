@@ -11,15 +11,10 @@ python:
   - "pypy3"
 
 env:
-  - DJANGO="Django<1.9"
-  - DJANGO="Django<1.11"
   - DJANGO="Django<2.0"
   - DJANGO="Django<2.1"
-
-matrix:
-  exclude:
-    - env: DJANGO="Django<1.11"
-      python: "pypy3"
+  - DJANGO="Django<2.2"
+  - DJANGO="Django<3.0"
 
 # Install dependencies.
 install:

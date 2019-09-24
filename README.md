@@ -40,7 +40,7 @@ take over active development, please [contact me](https://twitter.com/gavinballa
 
 Requirements
 ------------
-Tests are run against Django v1.8, v1.10, v1.11, and v2.0. This package may work for
+Tests are run against Django v1.11, v2.0, v2.1 and v2.2. This package may work for
 other Django versions but it's not guaranteed.
 
 As with the original `shopify_django_app` package, you'll need a [Shopify partner account](http://shopify.com/partners)
@@ -127,7 +127,7 @@ LOGIN_REDIRECT_URL = '/'
 # being tunneled (by ngrok, for example).
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-# For Django>=2.1, if you are using ngrok or other tools for tunnelling/proxying when developing, 
+# For Django>=2.1, if you are using ngrok or other tools for tunnelling/proxying when developing,
 # we must explicitly allow cookies from different sites or the auth redirection after the login will
 # result in an infinite loop (session cannot be read from cookies)
 SESSION_COOKIE_SAMESITE = False
@@ -156,7 +156,7 @@ Now that all of the settings are configured, you can run `migrate` to set up the
 
 Include `shopify_auth` URLs in your project's `urls.py`:
 
-#### Django 2.0
+#### Django 2.x
 
 ```python
 # urls.py
@@ -254,7 +254,7 @@ Partner Application Setup
 In addition to getting the package up and running in your local Django project, you'll need to configure your
 application via the Shopify Partner dashboard. The first part of my brief [screencast series](http://gavinballard.com/shopify-app-in-15-minutes-with-django/)
 walks you through the setup of a Shopify Partner application.
-  
+
 An ***important omission*** from the screencast series is that Shopify now requires applications to provide a list of
 authorized "Redirection URLs" from the partner dashboard for enhanced security (this wasn't a required setting at the
 time of recording the screencasts).
@@ -262,7 +262,7 @@ time of recording the screencasts).
 To avoid getting an OAuth error while customers try to install your application, make sure your application's settings
 include the absolute URL to `/login/finalize/` (including the trailing slash) in their whitelisted URLs. For example,
 if your application resides at `https://myapp.example.com`, then you should include
-`https://myapp.example.com/login/finalize/` in the "Redirection URL" section of your application settings. 
+`https://myapp.example.com/login/finalize/` in the "Redirection URL" section of your application settings.
 
 
 Questions or Problems?
