@@ -1,6 +1,14 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 0.8.2 - 2019-09-24
+### Added
+- Support for `return_to` redirect parameter.
+- Added Django v2.1, v2.2 and v2.3 to test matrix.
+
+### Removed
+- Support for deprecated Django versions 1.x.
+
 ## 0.8.1 - 2019-07-01
 ### Changed
 - Added support for Shopify API versioning.

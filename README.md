@@ -288,3 +288,8 @@ Release History
 ---------------
 
 Refer to the [change log](https://github.com/discolabs/django-shopify-auth/blob/master/CHANGELOG.md) for a full list of changes.
+
+Special Thanks
+--------------
+
+A big shout-out to [Josef Rousek](https://github.com/stlk) for his contributions and help maintaining this package.
