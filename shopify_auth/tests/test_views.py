@@ -8,6 +8,7 @@ class ViewsTestCase(TestCase):
         self.client = Client()
 
     def tearDown(self):
+        settings.SHOPIFY_APP_DEV_MODE = False
         self.client = None
 
     def test_login_view(self):
@@ -39,4 +40,14 @@ class ViewsTestCase(TestCase):
         self.assertEqual(self.client.session['_auth_user_backend'], 'shopify_auth.backends.ShopUserBackend')
         self.assertIsNot(self.client.session['_auth_user_hash'], None)
 
+    def test_redirect_to_view(self):
+        """
+        Test that return_address is persisted through login flow.
+        """
+        response = self.client.get('/authenticate/?shop=test.myshopify.com&next=other-view')
+        self.assertContains(response, 'window.top.location.href = "https://test.myshopify.com/admin/oauth/authorize')
 
+        settings.SHOPIFY_APP_DEV_MODE = True
+        response = self.client.get('/authenticate/?shop=test.myshopify.com')
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, 'other-view')
