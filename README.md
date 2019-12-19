@@ -40,7 +40,7 @@ take over active development, please [contact me](https://twitter.com/gavinballa
 
 Requirements
 ------------
-Tests are run against Django v1.11, v2.0, v2.1 and v2.2. This package may work for
+Tests are run against Django versions defined in `.travis.yml`. This package may work for
 other Django versions but it's not guaranteed.
 
 As with the original `shopify_django_app` package, you'll need a [Shopify partner account](http://shopify.com/partners)
