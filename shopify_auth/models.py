@@ -3,7 +3,6 @@ import shopify
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
 
 
 class ShopUserManager(BaseUserManager):
@@ -30,7 +29,6 @@ class ShopUserManager(BaseUserManager):
         return self.create_user(myshopify_domain, password)
 
 
-@python_2_unicode_compatible
 class AbstractShopUser(AbstractBaseUser):
     myshopify_domain = models.CharField(max_length=255, unique=True, editable=False)
     token = models.CharField(max_length=32, editable=False, default='00000000000000000000000000000000')
