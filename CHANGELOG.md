@@ -1,13 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## Unreleased
+## 0.9.0 - 2019-12-22
 ### Added
 - Support for Django 3 by removing Python 2 support
 
 ### Removed
 - Dropped support for Python 2
-
 
 ## 0.8.2 - 2019-09-24
 ### Added
