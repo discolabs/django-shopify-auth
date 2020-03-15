@@ -1,5 +1,5 @@
+from .decorators import is_authenticated
 from django.contrib.auth import get_user_model
-from shopify_auth.decorators import is_authenticated
 from django.contrib.auth import authenticate, login
 
 
