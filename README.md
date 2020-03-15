@@ -108,6 +108,11 @@ SHOPIFY_APP_API_VERSION = "0000-00"
 SHOPIFY_APP_IS_EMBEDDED = True
 SHOPIFY_APP_DEV_MODE = False
 
+MIDDLEWARE = [
+    # rest
+    'shopify_auth.middleware.VerifyRequestMiddleware',
+]
+
 # Use the Shopify Auth authentication backend as the sole authentication backend.
 AUTHENTICATION_BACKENDS = (
     'shopify_auth.backends.ShopUserBackend',
