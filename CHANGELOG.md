@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 
 ## Unreleased
+No unreleased changes.
+
+## 0.9.1 - 2020-03-25
 ### Added
 - Detection if third party cookies are allowed
 
