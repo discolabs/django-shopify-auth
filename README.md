@@ -28,15 +28,18 @@ an app using `django-shopify-auth` up and running in under 15 minutes.
 
 Package Status
 --------------
-The package author (@gavinballard) is currently in "non-active maintenance" mode.
-I am happy to review and merge pull requests that provide a clear description of
-the problem they solve and provide a thorough test to avoid any regressions, but
+The original package author (@gavinballard) is currently in "non-active maintenance"
+mode. I am happy to review and merge pull requests that provide a clear description
+of the problem they solve and provide a thorough test to avoid any regressions, but
 as I don't use Django in my day-to-day Shopify development any more (the last
 version I used with much regularity was Django 1.9) I am not actively working on
 the code.
 
+More recently, @stlk has been actively contributing to the project and now has commit
+and release privileges. Thanks!
+
 If you're using this package on a regular basis and feel you'd be a good fit to
-take over active development, please [contact me](https://twitter.com/gavinballard).
+help out with active development, please [contact me](https://twitter.com/gavinballard).
 
 Requirements
 ------------
@@ -252,12 +255,7 @@ calls to the Shopify API using this pattern.
 Partner Application Setup
 -------------------------
 In addition to getting the package up and running in your local Django project, you'll need to configure your
-application via the Shopify Partner dashboard. The first part of my brief [screencast series](http://gavinballard.com/shopify-app-in-15-minutes-with-django/)
-walks you through the setup of a Shopify Partner application.
-
-An ***important omission*** from the screencast series is that Shopify now requires applications to provide a list of
-authorized "Redirection URLs" from the partner dashboard for enhanced security (this wasn't a required setting at the
-time of recording the screencasts).
+application via the Shopify Partner dashboard.
 
 To avoid getting an OAuth error while customers try to install your application, make sure your application's settings
 include the absolute URL to `/login/finalize/` (including the trailing slash) in their whitelisted URLs. For example,
@@ -279,9 +277,6 @@ Learn how to use the `shopify_python_api` library:
 
 Ask technical questions on Stack Overflow:
 <http://stackoverflow.com/questions/tagged/shopify>
-
-Email me:
-[gavin@gavinballard.com](mailto:gavin@gavinballard.com)
 
 
 Release History
