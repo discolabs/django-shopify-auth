@@ -1,6 +1,13 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+### Added
+- Detection if third party cookies are allowed
+
+### Removed
+- Dropped support for Python 3.4
+
 ## 0.9.0 - 2019-12-22
 ### Added
 - Support for Django 3 by removing Python 2 support
