@@ -1,0 +1,131 @@
+<link rel="stylesheet" href="https://sdks.shopifycdn.com/polaris/2.0.0/polaris.min.css" />
+
+<div class="Polaris-Page">
+  <div class="Polaris-Page__Content">
+    <div class="Polaris-Layout">
+      <div class="Polaris-Layout__Section">
+        <div class="Polaris-Stack Polaris-Stack--vertical">
+          <div class="Polaris-Stack__Item">
+            <div class="Polaris-EmptyState">
+              <div class="Polaris-EmptyState__Section">
+                <div class="Polaris-EmptyState__DetailsContainer">
+                  <div class="Polaris-EmptyState__DetailsX">
+
+                    <div id="checking-cookies">
+                      <div class="Polaris-TextContainer">
+                        <h1 class="Polaris-DisplayText Polaris-DisplayText--sizeMedium">
+                          Verifying your cookie configuration...
+                        </h1>
+                      </div>
+                    </div>
+
+                    <div id="cookies-disabled" style="display: none;">
+                      <div class="Polaris-TextContainer">
+                        <h1 class="Polaris-DisplayText Polaris-DisplayText--sizeSmall">
+                          It looks like you have blocked third-party cookies and we can't authenticate you.
+                          <br />
+                          How to fix it? 🛠️
+                        </h1>
+                        <div class="Polaris-EmptyState__Content">
+                          <ul>
+                            <li>Try refreshing this page in your browser</li>
+                            <li>Try to access our app in a different browser</li>
+                            <li>Allow third-party cookies in your browser</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div id="check-failed" style="display: none;">
+                      <div class="Polaris-TextContainer">
+                        <h1 class="Polaris-DisplayText Polaris-DisplayText--sizeMedium">
+                          Sorry. There was a problem verifying your cookie configuration.
+                        </h1>
+                        <div class="Polaris-EmptyState__Content">
+                          <p>
+                            Something went wrong detecting third-party cookies.
+                            <br />
+                            This happens occasionally. Please try reloading the page.
+                          </p>
+                        </div>
+                      </div>
+                      <div class="Polaris-EmptyState__Actions">
+                        <div class="Polaris-Stack Polaris-Stack--alignmentCenter">
+                          <div class="Polaris-Stack__Item">
+                            <button type="button" onclick="document.getElementById('login').submit();" class="Polaris-Button Polaris-Button--primary Polaris-Button--sizeLarge">
+                              <span class="Polaris-Button__Content">
+                                <span class="Polaris-Button__Icon"></span>
+                                <span>Try login anyway</span>
+                              </span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form id="login" action="{{login_url}}" method="POST">
+  {% csrf_token %}
+  <input name="shop" value="{{shop}}" type="hidden" />
+</form>
+
+<script>
+  window.detect = {
+    cookies_third_party: {
+      enabled: function () {
+        return (
+          "enabled" == window.cookies_third_party ||
+          ("disabled" != window.cookies_third_party && null)
+        );
+      },
+      cookie_has_now_been_set_by_third_party: function () {
+        cookie_check_script_element = document.createElement("script")
+        cookie_check_script_element.setAttribute("src", "{{check_cookie_url}}")
+        body_object = document.getElementsByTagName("body")[0]
+        body_object.appendChild(cookie_check_script_element);
+      },
+      cookies_test_finished: function (e) {
+        window.cookies_third_party = e ? "enabled" : "disabled";
+      }
+    },
+  }
+
+  document.addEventListener("DOMContentLoaded", function (event) {
+
+    window.cookies_third_party = "unknown"
+    window.detect.cookies_third_party.cookie_has_now_been_set_by_third_party();
+
+    window.cookie_check_interval = setInterval(function () {
+      if (window.detect.cookies_third_party.enabled() == true) {
+        document.getElementById("login").submit();
+        clearInterval(window.cookie_check_interval);
+      }
+      else if (window.detect.cookies_third_party.enabled() == false) {
+        document.getElementById("checking-cookies").style.display = "none";
+        document.getElementById("cookies-disabled").style.display = "block";
+        document.getElementById("check-failed").style.display = "none";
+        clearInterval(window.cookie_check_interval);
+      }
+    }, 50);
+
+    setTimeout(function () {
+      if (window.cookies_third_party === "unknown") {
+        document.getElementById("checking-cookies").style.display = "none";
+        document.getElementById("cookies-disabled").style.display = "none";
+        document.getElementById("check-failed").style.display = "block";
+      }
+      clearInterval(window.cookie_check_interval);
+    }, 4000);
+  });
+
+</script>

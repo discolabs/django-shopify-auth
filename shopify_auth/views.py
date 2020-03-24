@@ -3,7 +3,7 @@ import shopify
 from django import VERSION as DJANGO_VERSION
 from django.conf import settings
 from django.contrib import auth
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, resolve_url
 
 from .decorators import anonymous_required
@@ -14,6 +14,7 @@ else:
     from django.core.urlresolvers import reverse
 
 SESSION_REDIRECT_FIELD_NAME = 'shopify_auth_next'
+THIRD_PARTY_COOKIE_NAME = 'a_third_party_cookie'
 
 def get_return_address(request):
     return request.session.get(SESSION_REDIRECT_FIELD_NAME) or request.GET.get(auth.REDIRECT_FIELD_NAME) or resolve_url(settings.LOGIN_REDIRECT_URL)
@@ -25,13 +26,33 @@ def login(request, *args, **kwargs):
     # as a result of submitting the login form.
     shop = request.POST.get('shop', request.GET.get('shop'))
 
-    # If the shop parameter has already been provided, attempt to authenticate immediately.
+    # If the merchant is authenticating from Shopify Admin, make sure cookies work.
     if shop:
+        if settings.SHOPIFY_APP_IS_EMBEDDED:
+            response = render(request, "shopify_auth/check_cookies.html", {
+                'SHOPIFY_APP_NAME': settings.SHOPIFY_APP_NAME,
+                'shop': shop,
+                'login_url': reverse(authenticate),
+                'check_cookie_url': reverse(check_cookie),
+            })
+            response.set_cookie(THIRD_PARTY_COOKIE_NAME, 'true', secure=True)
+            return response
+
+        # If the shop parameter has already been provided, attempt to authenticate immediately.
         return authenticate(request, *args, **kwargs)
 
     return render(request, "shopify_auth/login.html", {
-        'SHOPIFY_APP_NAME': settings.SHOPIFY_APP_NAME
+        'SHOPIFY_APP_NAME': settings.SHOPIFY_APP_NAME,
+        'shop': shop,
     })
+
+
+def check_cookie(request):
+    is_cookie_present = request.COOKIES.get(THIRD_PARTY_COOKIE_NAME, 'false')
+    return HttpResponse(
+        'window.detect.cookies_third_party.cookies_test_finished({});'.format(is_cookie_present),
+        content_type='application/javascript; charset=UTF-8;'
+    )
 
 
 @anonymous_required

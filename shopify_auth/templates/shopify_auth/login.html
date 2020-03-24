@@ -1,15 +1,45 @@
-<h1>Log In</h1>
+<link rel="stylesheet" href="https://sdks.shopifycdn.com/polaris/2.0.0/polaris.min.css" />
 
-<form method="POST">
-    {% csrf_token %}
+<div class="Polaris-EmptyState">
+    <div class="Polaris-EmptyState__Section">
+        <div class="Polaris-EmptyState__DetailsContainer">
+            <div class="Polaris-EmptyState__Details">
+                <div class="Polaris-TextContainer">
+                    <p class="Polaris-DisplayText Polaris-DisplayText--sizeMedium">{{SHOPIFY_APP_NAME}}</p>
+                    <div class="Polaris-EmptyState__Content">
+                        <p>
+                            Enter your shop domain to log in or install this app.
+                        </p>
+                    </div>
+                </div>
+                <div class="Polaris-EmptyState__Actions">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div style="margin-bottom: 2rem;">
+                            <div class="Polaris-Labelled__LabelWrapper">
+                                <div class="Polaris-Label">
+                                    <label for="shop" class="Polaris-Label__Text">Shop URL</label>
+                                </div>
+                            </div>
+                            <div class="Polaris-TextField">
+                                <input id="shop" name="shop" class="Polaris-TextField__Input" type="text" />
+                                <div class="Polaris-TextField__Backdrop"></div>
+                            </div>
+                        </div>
+                        <div class="Polaris-ButtonGroup">
+                            <div class="Polaris-ButtonGroup__Item">
+                                <button type="submit"
+                                    class="Polaris-Button Polaris-Button--primary Polaris-Button--sizeLarge ">
+                                    <span class="Polaris-Button__Content">
+                                        <span>Install</span>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
 
-    <p>
-        <label for="shop">Shop URL</label>
-    </p>
-
-    <p>
-        <input id="shop" name="shop" type="text" />
-    </p>
-
-    <input type="submit" value="Install" />
-</form>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
