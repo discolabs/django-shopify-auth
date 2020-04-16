@@ -28,7 +28,7 @@ def login(request, *args, **kwargs):
 
     # If the merchant is authenticating from Shopify Admin, make sure cookies work.
     if shop:
-        if settings.SHOPIFY_APP_IS_EMBEDDED:
+        if settings.SHOPIFY_APP_IS_EMBEDDED and not settings.SHOPIFY_APP_DISABLE_COOKIE_CHECK:
             response = render(request, "shopify_auth/check_cookies.html", {
                 'SHOPIFY_APP_NAME': settings.SHOPIFY_APP_NAME,
                 'shop': shop,
