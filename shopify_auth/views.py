@@ -1,17 +1,13 @@
 import shopify
 
-from django import VERSION as DJANGO_VERSION
 from django.conf import settings
 from django.contrib import auth
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, resolve_url
+from django.urls import reverse
 
 from .decorators import anonymous_required
 
-if DJANGO_VERSION >= (2, 0, 0):
-    from django.urls import reverse
-else:
-    from django.core.urlresolvers import reverse
 
 SESSION_REDIRECT_FIELD_NAME = 'shopify_auth_next'
 THIRD_PARTY_COOKIE_NAME = 'a_third_party_cookie'

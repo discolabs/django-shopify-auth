@@ -1,7 +1,6 @@
 
 from functools import wraps
 
-from django import VERSION as DJANGO_VERSION
 from django.contrib.auth.decorators import user_passes_test
 from django.conf import settings
 from django.contrib.auth import REDIRECT_FIELD_NAME
@@ -11,17 +10,8 @@ from django.contrib.auth.decorators import login_required as django_login_requir
 
 from .helpers import add_query_parameters_to_url
 
-def is_authenticated(user):
-    if DJANGO_VERSION >= (2, 0, 0):
-        return user.is_authenticated
-    else:
-        return user.is_authenticated()
-
 def is_anonymous(user):
-    if DJANGO_VERSION >= (2, 0, 0):
-        return user.is_anonymous
-    else:
-        return user.is_anonymous()
+    return user.is_anonymous
 
 def anonymous_required(function=None, redirect_url=None):
     """
@@ -53,7 +43,7 @@ def login_required(f, redirect_field_name=REDIRECT_FIELD_NAME, login_url=None):
 
     @wraps(f)
     def wrapper(request, *args, **kwargs):
-        if is_authenticated(request.user):
+        if request.user.is_authenticated:
             return f(request, *args, **kwargs)
 
         # Extract the Shopify-specific authentication parameters from the current request.
