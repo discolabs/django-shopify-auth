@@ -2,7 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unreleased
-No unreleased changes.
+### Changed
+- Increase the token field max_length
 
 ## 0.9.1 - 2020-03-25
 ### Added
