@@ -3,7 +3,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 ### Changed
-- Increase the token field max_length
+- Increased the token field max_length
+- Updated test matrix to test only supported Django and Python versions
+
+### Removed
+- Dropped support for Django 1.x
 
 ## 0.9.1 - 2020-03-25
 ### Added
