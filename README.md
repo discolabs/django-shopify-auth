@@ -4,10 +4,7 @@ Django Shopify Auth
 [![PyPI version](https://badge.fury.io/py/django-shopify-auth.svg)](http://badge.fury.io/py/django-shopify-auth)
 [![Build Status](https://travis-ci.org/discolabs/django-shopify-auth.svg?branch=master)](https://travis-ci.org/discolabs/django-shopify-auth)
 
-This Django package makes it easy to integrate Shopify authentication into your Django app. It shares some similarities
-with the [shopify_django_app](https://github.com/Shopify/shopify_django_app) project, but with a couple of key
-differences:
-
+This Django package makes it easy to integrate Shopify authentication into your Django app.
 
 * It provides a custom Django Authentication scheme based on `AbstractBaseUser` and `RemoteUserBackend`, meaning shops
   will be authenticated as "users" of your Django app. This makes it easier to use common Django patterns and libraries
@@ -16,15 +13,7 @@ differences:
 * It persists users' Shopify access tokens in the database, rather than in the Session, meaning your app will be able
   to make API calls on behalf of a user when they're not logged in.
 
-* It supports the authentication flow for new-style "Embedded SDK" Shopify apps.
-
-
-This project provides one package, `shopify_auth`.
-A demonstration Django project using this package is available [here](https://github.com/discolabs/auth_demo).
-
-If you'd like a detailed breakdown of how to set up an app from scratch using this package, I've recorded a a short
-series of [five minute screencasts](http://gavinballard.com/shopify-app-in-15-minutes-with-django/) showing how to get
-an app using `django-shopify-auth` up and running in under 15 minutes.
+* It supports the authentication flow for "Embedded SDK" Shopify apps.
 
 Package Status
 --------------
@@ -57,8 +46,6 @@ There are a few moving parts to set up, but hopefully the following instructions
 We're assuming in this setup that you're using a standard Django project layout (the sort that's created with the
 `django-admin.py startproject` command). We're also assuming that our project is called `auth_demo` and that the primary
 Django app inside our project is going to be called `auth_app`.
-
-If you ever get lost or aren't really sure what to do, you can refer to the [demo app](https://github.com/discolabs/auth_demo).
 
 
 ### 1. Install package
@@ -130,10 +117,8 @@ LOGIN_REDIRECT_URL = '/'
 # being tunneled (by ngrok, for example).
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-# For Django>=2.1, if you are using ngrok or other tools for tunnelling/proxying when developing,
-# we must explicitly allow cookies from different sites or the auth redirection after the login will
-# result in an infinite loop (session cannot be read from cookies)
-SESSION_COOKIE_SAMESITE = False
+# With [changes to SameSite policy](https://web.dev/samesite-cookies-explained/) embedded apps now have to run in `SameSite=None; Secure` mode. You can do it by setting following config. Keep in mind this only works in Django >= 3.1.
+SESSION_COOKIE_SAMESITE = 'None'
 ```
 
 Note that in the example above, the application API key and API secret are pulled from environment settings, which is a
@@ -159,8 +144,6 @@ Now that all of the settings are configured, you can run `migrate` to set up the
 
 Include `shopify_auth` URLs in your project's `urls.py`:
 
-#### Django 2.x
-
 ```python
 # urls.py
 from django.urls import include, path
@@ -170,19 +153,6 @@ urlpatterns = [
 
     # ... remaining configuration here ...
 ]
-```
-
-#### Earlier versions of Django
-
-```python
-# urls.py
-from django.conf.urls import patterns, include, url
-
-urlpatterns = patterns('',
-    url(r'login/', include('shopify_auth.urls')),
-
-    # ... remaining configuration here ...
-)
 ```
 
 ### 5. Create application views
@@ -266,14 +236,8 @@ if your application resides at `https://myapp.example.com`, then you should incl
 Questions or Problems?
 ----------------------
 
-Browse through the code for the demo app:
-<https://github.com/discolabs/auth_demo>
-
 Read up on the possible API calls:
-<http://api.shopify.com>
-
-Learn how to use the `shopify_python_api` library:
-<http://wiki.shopify.com/Using_the_shopify_python_api>
+<http://https://shopify.dev/concepts/shopify-introduction>
 
 Ask technical questions on Stack Overflow:
 <http://stackoverflow.com/questions/tagged/shopify>
