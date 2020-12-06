@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 ### Changed
+- 3rd party cookie check is now disabled by default as it doesn't pass Shopify's review check.
 - Increased the token field max_length
 - Updated test matrix to test only supported Django and Python versions
 

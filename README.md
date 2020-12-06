@@ -95,6 +95,9 @@ SHOPIFY_APP_API_VERSION = "0000-00"
 SHOPIFY_APP_IS_EMBEDDED = True
 SHOPIFY_APP_DEV_MODE = False
 
+# Enable after the app is approved
+SHOPIFY_APP_THIRD_PARTY_COOKIE_CHECK = False
+
 # Use the Shopify Auth authentication backend as the sole authentication backend.
 AUTHENTICATION_BACKENDS = (
     'shopify_auth.backends.ShopUserBackend',

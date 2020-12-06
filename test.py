@@ -35,6 +35,7 @@ configuration = {
     'SHOPIFY_APP_API_SCOPE': ['read_products'],
     'SHOPIFY_APP_IS_EMBEDDED': True,
     'SHOPIFY_APP_DEV_MODE': False,
+    'SHOPIFY_APP_THIRD_PARTY_COOKIE_CHECK': True,
     middleware_settings_key: [
         'django.middleware.common.CommonMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
