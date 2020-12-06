@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 - Increased the token field max_length
 - Updated test matrix to test only supported Django and Python versions
 
+### Added
+- Added a mixin which verifies that the current shop is authenticated and app is installed in shopify.
 ### Removed
 - Dropped support for Django 1.x
 
