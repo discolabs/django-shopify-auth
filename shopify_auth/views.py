@@ -24,6 +24,11 @@ def login(request, *args, **kwargs):
 
     # If the merchant is authenticating from Shopify Admin, make sure cookies work.
     if shop:
+        # Store return adress so merchant gets where they intended to.
+        return_address_parameter = request.GET.get(auth.REDIRECT_FIELD_NAME)
+        if return_address_parameter:
+            request.session[SESSION_REDIRECT_FIELD_NAME] = return_address_parameter
+
         if settings.SHOPIFY_APP_IS_EMBEDDED and getattr(settings, 'SHOPIFY_APP_THIRD_PARTY_COOKIE_CHECK', False):
             response = render(request, "shopify_auth/check_cookies.html", {
                 'SHOPIFY_APP_NAME': settings.SHOPIFY_APP_NAME,

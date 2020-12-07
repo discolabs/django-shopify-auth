@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unreleased
+### Changed
+- Fix issue where `next` parameter wasn't honored when `SHOPIFY_APP_THIRD_PARTY_COOKIE_CHECK` is enabled.
 ### Added
 - Added a middleware to accommodate changes to SameSite policy.
 
