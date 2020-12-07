@@ -119,9 +119,6 @@ LOGIN_REDIRECT_URL = '/'
 # This ensures that correct 'https' URLs are generated when our Django app is running behind a proxy like nginx, or is
 # being tunneled (by ngrok, for example).
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-# With [changes to SameSite policy](https://web.dev/samesite-cookies-explained/) embedded apps now have to run in `SameSite=None; Secure` mode. You can do it by setting following config. Keep in mind this only works in Django >= 3.1.
-SESSION_COOKIE_SAMESITE = 'None'
 ```
 
 Note that in the example above, the application API key and API secret are pulled from environment settings, which is a
@@ -135,6 +132,16 @@ If `SHOPIFY_APP_IS_EMBEDDED` is `False`, the normal authentication flow for non-
 Setting `SHOPIFY_APP_DEV_MODE` to `True` allows you to test your apps locally by skipping the external OAuth phase for
 your app. As it means you can log into your app as any store, you should obviously ***never*** set this to `True` in
 production.
+
+With [changes to SameSite policy](https://web.dev/samesite-cookies-explained/) embedded apps now have to run in `SameSite=None; Secure` mode. As there are [some browsers](https://www.chromium.org/updates/same-site/incompatible-clients) that don't handle `SameSite=None` we can't use `SESSION_COOKIE_SAMESITE = 'None'` provided by Django 3.1. Instead we have to use a middleware. Place `shopify_auth.cookies_middleware.SamesiteCookieMiddleware` as the first middleware and configure following values in your `settings.py`.
+
+```python
+SESSION_COOKIE_SAMESITE = None
+CSRF_COOKIE_SAMESITE = None
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+```
 
 Now that all of the settings are configured, you can run `migrate` to set up the database for your new user model:
 

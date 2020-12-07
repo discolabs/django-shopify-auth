@@ -2,7 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unreleased
-No unreleased changes.
+### Added
+- Added a middleware to accommodate changes to SameSite policy.
 
 ## 1.0.0 - 2020-12-06
 ### Changed
