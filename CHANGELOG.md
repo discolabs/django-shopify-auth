@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 No unreleased changes.
 
+## 1.0.2 - 2021-02-19
+### Changed
+- Add forgotten dependency and update other ones.
+
 ## 1.0.1 - 2020-12-09
 ### Changed
 - Fix issue where `next` parameter wasn't honored when `SHOPIFY_APP_THIRD_PARTY_COOKIE_CHECK` is enabled.

@@ -20,14 +20,12 @@ setup(
 
     install_requires=[
         'django >=2.2',
-        'ShopifyAPI >=5.0.1',
+        'ShopifyAPI >=8.0.0',
         'setuptools >=5.7',
-        'six >=1.9.0',
+        'ua-parser >=0.10.0',
     ],
 
-    tests_require=[
-        'model_mommy >=1.2.1',
-    ],
+    tests_require=[],
 
     zip_safe=False,
     include_package_data=True,
