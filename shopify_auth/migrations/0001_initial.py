@@ -7,16 +7,33 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='ShopifyUserProfile',
+            name="ShopifyUserProfile",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('myshopify_domain', models.CharField(editable=False, max_length=255, unique=True)),
-                ('token', models.CharField(default='00000000000000000000000000000000', editable=False, max_length=64)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "myshopify_domain",
+                    models.CharField(editable=False, max_length=255, unique=True),
+                ),
+                (
+                    "token",
+                    models.CharField(
+                        default="00000000000000000000000000000000",
+                        editable=False,
+                        max_length=64,
+                    ),
+                ),
             ],
         ),
     ]

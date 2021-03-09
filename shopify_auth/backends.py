@@ -19,17 +19,21 @@ class ShopUserBackend(RemoteUserBackend):
 
         username = self.clean_username(myshopify_domain)
 
-        try:
-            user_shopify_profile = ShopifyUserProfile.objects.get_by_natural_key(username)
-        except ShopifyUserProfile.DoesNotExist:
+        user = super(ShopUserBackend, self).authenticate(
+            request=request, remote_user=myshopify_domain
+        )
+        if not user.shopify_user_profile:
+            shopify_user_profile = ShopifyUserProfile.objects.create(
+                myshopify_domain=myshopify_domain
+            )
+        else:
+            shopify_user_profile = user.shopify_user_profile
+
+        if not user or not self.user_can_authenticate(user):
             return
 
-        user = user_shopify_profile.user
-
-        if not self.user_can_authenticate(user):
-            return
-
-        user.token = token
+        shopify_user_profile.token = token
+        user.shopify_user_profile = shopify_user_profile
+        shopify_user_profile.save()
         user.save()
         return user
-

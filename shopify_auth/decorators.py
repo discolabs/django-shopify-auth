@@ -1,4 +1,3 @@
-
 from functools import wraps
 
 from django.contrib.auth.decorators import user_passes_test
@@ -10,8 +9,10 @@ from django.contrib.auth.decorators import login_required as django_login_requir
 
 from .helpers import add_query_parameters_to_url
 
+
 def is_anonymous(user):
     return user.is_anonymous
+
 
 def anonymous_required(function=None, redirect_url=None):
     """
@@ -21,9 +22,7 @@ def anonymous_required(function=None, redirect_url=None):
         redirect_url = settings.LOGIN_REDIRECT_URL
 
     actual_decorator = user_passes_test(
-        is_anonymous,
-        login_url=redirect_url,
-        redirect_field_name=None
+        is_anonymous, login_url=redirect_url, redirect_field_name=None
     )
 
     if function:
@@ -49,7 +48,7 @@ def login_required(f, redirect_field_name=REDIRECT_FIELD_NAME, login_url=None):
         # Extract the Shopify-specific authentication parameters from the current request.
         shopify_params = {
             k: request.GET[k]
-            for k in ['shop', 'timestamp', 'signature', 'hmac']
+            for k in ["shop", "timestamp", "signature", "hmac"]
             if k in request.GET
         }
 
@@ -57,10 +56,13 @@ def login_required(f, redirect_field_name=REDIRECT_FIELD_NAME, login_url=None):
         resolved_login_url = force_str(resolve_url(login_url or settings.LOGIN_URL))
 
         # Add the Shopify authentication parameters to the login URL.
-        updated_login_url = add_query_parameters_to_url(resolved_login_url, shopify_params)
+        updated_login_url = add_query_parameters_to_url(
+            resolved_login_url, shopify_params
+        )
 
-        django_login_required_decorator = django_login_required(redirect_field_name=redirect_field_name,
-                                                                login_url=updated_login_url)
+        django_login_required_decorator = django_login_required(
+            redirect_field_name=redirect_field_name, login_url=updated_login_url
+        )
         return django_login_required_decorator(f)(request, *args, **kwargs)
 
     return wrapper

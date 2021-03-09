@@ -21,4 +21,6 @@ def add_query_parameters_to_url(url, query_parameters):
 
     # Encode the new parameters and return the updated URL.
     new_qs = urllib.parse.urlencode(sorted_qs_args, True)
-    return urllib.parse.urlunparse(list(url_parts[0:4]) + [new_qs] + list(url_parts[5:]))
+    return urllib.parse.urlunparse(
+        list(url_parts[0:4]) + [new_qs] + list(url_parts[5:])
+    )
