@@ -23,6 +23,7 @@ setup(
         'ShopifyAPI >=8.0.0',
         'setuptools >=5.7',
         'ua-parser >=0.10.0',
+        'python-jose >=3.2.0'
     ],
 
     tests_require=[],

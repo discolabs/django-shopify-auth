@@ -1,3 +1,4 @@
 django >=2.2
 ShopifyAPI >=8.0.0
 ua-parser
+python-jose
