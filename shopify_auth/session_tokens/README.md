@@ -8,7 +8,7 @@ I created a [demo app](https://github.com/digismoothie/django-session-token-auth
 
 ### Instalation
 
-1. Add `shopify_auth` to `INSTALLED_APPS` and `"shopify_auth.shopify_auth.middleware.SessionTokensAuthMiddleware",` middleware after the `"django.contrib.auth.middleware.AuthenticationMiddleware",`.
+1. Add `shopify_auth` to `INSTALLED_APPS` and `"shopify_auth.session_tokens.middleware.SessionTokensAuthMiddleware",` middleware after the `"django.contrib.auth.middleware.AuthenticationMiddleware",`.
 
 myproject/settings.py
 ```python
@@ -21,12 +21,12 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     ...
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "shopify_auth.shopify_auth.middleware.SessionTokensAuthMiddleware", # This middleware has to be after django.contrib.auth.middleware.AuthenticationMiddleware.
+    "shopify_auth.session_tokens.middleware.SessionTokensAuthMiddleware", # This middleware has to be after django.contrib.auth.middleware.AuthenticationMiddleware.
     ...
 ]
 ```
 
-2. Add `path("auth/", include("shopify_auth.shopify_auth.urls", namespace="shopify_auth")),` to your project's `urls.py`.
+2. Add `path("auth/", include("shopify_auth.session_tokens.urls", namespace="session_tokens")),` to your project's `urls.py`.
 
 3. Create view that supports unauthenticated requests.
 
@@ -40,7 +40,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import generic
 from pyactiveresource.connection import UnauthorizedAccess
-from shopify_auth.shopify_auth.views import get_scope_permission
+from shopify_auth.session_tokens.views import get_scope_permission
 
 
 class DashboardView(generic.View):
