@@ -27,7 +27,7 @@ configuration = {
             'APP_DIRS': True
         }
     ],
-    'ROOT_URLCONF': 'shopify_auth.urls',
+    'ROOT_URLCONF': 'shopify_auth.tests.urls',
     'SHOPIFY_APP_NAME': 'Test App',
     'SHOPIFY_APP_API_KEY': 'test-api-key',
     'SHOPIFY_APP_API_SECRET': 'test-api-secret',

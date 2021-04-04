@@ -32,13 +32,22 @@ def authenticate(request):
         dest_host = get_hostname(decoded_payload["dest"])
         iss_host = get_hostname(decoded_payload["iss"])
 
-        assert dest_host == iss_host, "'dest' claim host does not match 'iss' claim host"
+        assert (
+            dest_host == iss_host
+        ), "'dest' claim host does not match 'iss' claim host"
         assert dest_host, "'dest' claim host not a valid shopify host"
 
         return get_user_model().objects.get(myshopify_domain=dest_host)
 
-    except (ExpiredSignatureError, JWTError, JWTClaimsError, AssertionError, ObjectDoesNotExist) as e:
+    except (
+        ExpiredSignatureError,
+        JWTError,
+        JWTClaimsError,
+        AssertionError,
+        ObjectDoesNotExist,
+    ) as e:
         logging.warning(f"Login user failed: {e}.")
+
 
 class SessionTokensAuthMiddleware:
     def __init__(self, get_response):
@@ -49,4 +58,3 @@ class SessionTokensAuthMiddleware:
         if user:
             request.user = user
         return self.get_response(request)
-

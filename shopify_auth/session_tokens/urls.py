@@ -2,7 +2,7 @@ from django.urls import path
 
 from . import views
 
-app_name = "shopify_auth"
+app_name = "session_tokens"
 
 urlpatterns = [
     path("finalize", views.FinalizeAuthView.as_view(), name="finalize"),
