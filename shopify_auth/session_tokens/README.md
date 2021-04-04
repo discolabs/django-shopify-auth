@@ -8,7 +8,7 @@ I created a [demo app](https://github.com/digismoothie/django-session-token-auth
 
 ### Instalation
 
-1. Add `shopify_auth` to `INSTALLED_APPS` and `"shopify_auth.shopify_auth.middleware.CookielessAuthMiddleware",` middleware after the `"django.contrib.auth.middleware.AuthenticationMiddleware",`.
+1. Add `shopify_auth` to `INSTALLED_APPS` and `"shopify_auth.shopify_auth.middleware.SessionTokensAuthMiddleware",` middleware after the `"django.contrib.auth.middleware.AuthenticationMiddleware",`.
 
 myproject/settings.py
 ```python
@@ -21,7 +21,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     ...
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "shopify_auth.shopify_auth.middleware.CookielessAuthMiddleware", # This middleware has to be before django.contrib.auth.middleware.AuthenticationMiddleware.
+    "shopify_auth.shopify_auth.middleware.SessionTokensAuthMiddleware", # This middleware has to be after django.contrib.auth.middleware.AuthenticationMiddleware.
     ...
 ]
 ```

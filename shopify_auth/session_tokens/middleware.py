@@ -40,7 +40,7 @@ def authenticate(request):
     except (ExpiredSignatureError, JWTError, JWTClaimsError, AssertionError, ObjectDoesNotExist) as e:
         logging.warning(f"Login user failed: {e}.")
 
-class CookielessAuthMiddleware:
+class SessionTokensAuthMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
 

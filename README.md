@@ -30,6 +30,11 @@ and release privileges. Thanks!
 If you're using this package on a regular basis and feel you'd be a good fit to
 help out with active development, please [contact me](https://twitter.com/gavinballard).
 
+Session tokens
+--------------
+
+Session token-based authentication is now required for embedded apps. Support for it is implemented in [separate app](shopify_auth/session_tokens/).
+
 Requirements
 ------------
 Tests are run against Django versions defined in `.travis.yml`. This package may work for
