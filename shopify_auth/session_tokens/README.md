@@ -1,6 +1,6 @@
 # Authenticate an embedded app using session tokens
 
-Session token based authentication comes with significant changes requried. I recommend you to look at the [article](https://shopify.dev/tutorials/authenticate-your-app-using-session-tokens).
+Session token based authentication comes with significant changes requried. I recommend you to follow this [article](https://shopify.dev/tutorials/authenticate-your-app-using-session-tokens).
 
 This app takes care of the installation and provides middleware that adds a user to a request based on a request header.
 
@@ -8,7 +8,7 @@ I created a [demo app](https://github.com/digismoothie/django-session-token-auth
 
 ### Instalation
 
-1. Add `shopify_auth` to `INSTALLED_APPS` and `"shopify_auth.session_tokens.middleware.SessionTokensAuthMiddleware",` middleware after the `"django.contrib.auth.middleware.AuthenticationMiddleware",`.
+1. Add `shopify_auth` to `INSTALLED_APPS`.
 
 myproject/settings.py
 ```python
@@ -17,7 +17,14 @@ INSTALLED_APPS = [
     "shopify_auth",
     ...
 ]
+```
 
+2. Configure authentication based on what Views are you using.
+
+#### Plain Django views
+
+myproject/settings.py
+```python
 MIDDLEWARE = [
     ...
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -26,9 +33,16 @@ MIDDLEWARE = [
 ]
 ```
 
-2. Add `path("auth/", include("shopify_auth.session_tokens.urls", namespace="session_tokens")),` to your project's `urls.py`.
+#### Django REST Framework
 
-3. Create view that supports unauthenticated requests.
+myproject/settings.py
+```python
+REST_FRAMEWORK = {"DEFAULT_AUTHENTICATION_CLASSES": ["shopify_auth.session_tokens.authentication.ShopifyTokenAuthentication"]}
+```
+
+3. Add `path("auth/", include("shopify_auth.session_tokens.urls", namespace="session_tokens")),` to your project's `urls.py`.
+
+4. Create view that supports unauthenticated requests.
 
 
 ```python
