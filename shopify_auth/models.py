@@ -50,5 +50,11 @@ class AbstractShopUser(AbstractBaseUser):
     def __str__(self):
         return self.get_full_name()
 
+    def install(self, request):
+        pass
+
+    def uninstall(self):
+        pass
+
     class Meta:
         abstract = True
