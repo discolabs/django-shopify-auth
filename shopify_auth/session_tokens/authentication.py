@@ -52,7 +52,7 @@ class ShopifyTokenAuthentication(BaseAuthentication):
                 raise AuthenticationFailed(INVALID_TOKEN_MESSAGE)
 
             try:
-                return UserModel.objects.get(myshopify_domain=dest_host)
+                return UserModel.objects.get(myshopify_domain=dest_host), token
             except UserModel.DoesNotExist:
                 raise AuthenticationFailed(INVALID_TOKEN_MESSAGE)
 
