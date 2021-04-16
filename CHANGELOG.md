@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 No unreleased changes.
 
+## 1.1.1 - 2021-04-16
+### Changed
+- Fixed session tokens DRF backend authentication return value.
+
 ## 1.1.0 - 2021-04-15
 ### Added
 - Added support for session token auth.
