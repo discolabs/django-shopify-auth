@@ -50,6 +50,14 @@ class AbstractShopUser(AbstractBaseUser):
     def __str__(self):
         return self.get_full_name()
 
+    @classmethod
+    def update_or_create(cls, shopify_session: shopify.Session, request):
+        shop, created = cls.objects.update_or_create(
+            myshopify_domain=shopify_session.url,
+            defaults={"token": shopify_session.token},
+        )
+        return shop
+
     def install(self, request):
         pass
 
