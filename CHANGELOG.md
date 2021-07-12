@@ -2,7 +2,10 @@
 All notable changes to this project will be documented in this file.
 
 ## Unreleased
-No unreleased changes.
+
+### Added
+- Added a way to customize user creation.
+
 
 ## 1.1.1 - 2021-04-16
 ### Changed

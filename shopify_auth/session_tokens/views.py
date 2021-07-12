@@ -40,11 +40,8 @@ class FinalizeAuthView(View):
         except:
             logging.exception("Shopify login failed.")
             return HttpResponse("Shopify login failed.")
-        shop, created = get_user_model().objects.update_or_create(
-            myshopify_domain=shopify_session.url,
-            defaults={"token": shopify_session.token},
-        )
 
+        shop = get_user_model().update_or_create(shopify_session, request)
         shop.install(request)
 
         return HttpResponseRedirect(
