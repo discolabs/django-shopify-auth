@@ -31,6 +31,8 @@ def get_scope_permission(request, myshopify_domain):
 class FinalizeAuthView(View):
     def get(self, request):
         myshopify_domain = request.GET.get("shop")
+        encoded_host = request.GET.get("host")
+
         try:
             shopify_session = shopify.Session(
                 myshopify_domain,
@@ -45,5 +47,5 @@ class FinalizeAuthView(View):
         shop.install(request)
 
         return HttpResponseRedirect(
-            get_return_address(request) + f"?shop={myshopify_domain}"
+            get_return_address(request) + f"?shop={myshopify_domain}&host={encoded_host}"
         )
