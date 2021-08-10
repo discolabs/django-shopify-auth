@@ -79,6 +79,12 @@ class AuthAppShopUser(AbstractShopUser):
     pass
 ```
 
+Before moving forward, ensure this model has been added to the database by running
+```
+python manage.py makemigrations
+python manage.py migrate
+```
+
 Then make sure that you have the following line or similar in `settings.py`:
 
 ```python
