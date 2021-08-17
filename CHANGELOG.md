@@ -2,9 +2,13 @@
 All notable changes to this project will be documented in this file.
 
 ## Unreleased
+No unreleased changes.
+
+## 1.2.0 - 2021-08-17
 
 ### Added
 - Added a way to customize user creation.
+- Session Token Auth now supports App Bridge 2.
 
 
 ## 1.1.1 - 2021-04-16
