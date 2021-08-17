@@ -62,6 +62,7 @@ class DashboardView(generic.View):
 
     def get(self, request):
         myshopify_domain = request.GET.get("shop")
+        encoded_host = request.GET.get("host") # New in App Bridge 2.0
 
         if not myshopify_domain:
             return HttpResponse("Shop parameter missing.")
@@ -73,9 +74,13 @@ class DashboardView(generic.View):
         with shop.session:
             try:
                 shopify_shop = shopify.Shop.current()
+                # Do your billing logic here
             except UnauthorizedAccess:
                 shop.uninstall()
                 return get_scope_permission(request, myshopify_domain)
+
+        if not encoded_host:
+            return redirect(f"https://{myshopify_domain}/admin/apps/{settings.SHOPIFY_APP_API_KEY}")
 
         user_logged_in.send(sender=shop.__class__, request=request, user=shop)
 
@@ -86,6 +91,7 @@ class DashboardView(generic.View):
                 "data": {
                     "shopOrigin": shop.myshopify_domain,
                     "apiKey": getattr(settings, "SHOPIFY_APP_API_KEY"),
+                    "encodedHost": encoded_host,
                 }
             },
         )
