@@ -12,31 +12,27 @@ from jose.exceptions import ExpiredSignatureError, JWTClaimsError, JWTError
 def get_hostname(url):
     return urlparse(url).netloc
 
+def decode_token(token):
+    decoded_payload = jwt.decode(
+        token,
+        settings.SHOPIFY_APP_API_SECRET,
+        algorithms=["HS256"],
+        audience=settings.SHOPIFY_APP_API_KEY,
+        options={"verify_sub": False, "verify_nbf": False},
+    )
+    dest_host = get_hostname(decoded_payload["dest"])
+    iss_host = get_hostname(decoded_payload["iss"])
 
-def authenticate(request):
-    jwt_token = request.headers.get("Authorization")
+    assert (
+        dest_host == iss_host
+    ), "'dest' claim host does not match 'iss' claim host"
+    assert dest_host, "'dest' claim host not a valid shopify host"
 
-    if not jwt_token:
-        return
+    return dest_host
 
-    striped_jwt_token = re.sub(r"Bearer\s", "", jwt_token)
+def get_user(token):
     try:
-        decoded_payload = jwt.decode(
-            striped_jwt_token,
-            settings.SHOPIFY_APP_API_SECRET,
-            algorithms=["HS256"],
-            audience=settings.SHOPIFY_APP_API_KEY,
-            options={"verify_sub": False, "verify_nbf": False},
-        )
-
-        dest_host = get_hostname(decoded_payload["dest"])
-        iss_host = get_hostname(decoded_payload["iss"])
-
-        assert (
-            dest_host == iss_host
-        ), "'dest' claim host does not match 'iss' claim host"
-        assert dest_host, "'dest' claim host not a valid shopify host"
-
+        dest_host = decode_token(token)
         return get_user_model().objects.get(myshopify_domain=dest_host)
 
     except (
@@ -47,6 +43,15 @@ def authenticate(request):
         ObjectDoesNotExist,
     ) as e:
         logging.warning(f"Login user failed: {e}.")
+
+def authenticate(request):
+    jwt_token = request.headers.get("Authorization")
+
+    if not jwt_token:
+        return
+
+    striped_jwt_token = re.sub(r"Bearer\s", "", jwt_token)
+    return get_user(striped_jwt_token)
 
 
 class SessionTokensAuthMiddleware:
