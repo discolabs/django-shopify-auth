@@ -13,7 +13,7 @@ This Django package makes it easy to integrate Shopify authentication into your 
 * It persists users' Shopify access tokens in the database, rather than in the Session, meaning your app will be able
   to make API calls on behalf of a user when they're not logged in.
 
-* It supports the authentication flow for "Embedded SDK" Shopify apps.
+* It supports the token-based authentication flow for Embedded Shopify apps.
 
 Package Status
 --------------
@@ -258,10 +258,10 @@ Questions or Problems?
 ----------------------
 
 Read up on the possible API calls:
-<http://https://shopify.dev/concepts/shopify-introduction>
+<https://shopify.dev/>
 
 Ask technical questions on Stack Overflow:
-<http://stackoverflow.com/questions/tagged/shopify>
+<https://stackoverflow.com/questions/tagged/shopify>
 
 
 Release History
