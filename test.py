@@ -36,6 +36,7 @@ configuration = {
     'SHOPIFY_APP_IS_EMBEDDED': True,
     'SHOPIFY_APP_DEV_MODE': False,
     'SHOPIFY_APP_THIRD_PARTY_COOKIE_CHECK': True,
+    'SECRET_KEY': 'uq8e140t1rm3^kk&blqxi*y9h_j5yd9ghjv+fd1p%08g4%t6%i',
     middleware_settings_key: [
         'django.middleware.common.CommonMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
