@@ -2,7 +2,7 @@ Django Shopify Auth
 ===================
 
 [![PyPI version](https://badge.fury.io/py/django-shopify-auth.svg)](http://badge.fury.io/py/django-shopify-auth)
-[![Build Status](https://travis-ci.org/discolabs/django-shopify-auth.svg?branch=master)](https://travis-ci.org/discolabs/django-shopify-auth)
+![example workflow](https://github.com/discolabs/django-shopify-auth/actions/workflows/ci.yml/badge.svg)
 
 This Django package makes it easy to integrate Shopify authentication into your Django app.
 
@@ -24,27 +24,26 @@ as I don't use Django in my day-to-day Shopify development any more (the last
 version I used with much regularity was Django 1.9) I am not actively working on
 the code.
 
-More recently, @stlk has been actively contributing to the project and now has commit
+More recently, [Josef Rousek](https://github.com/stlk) has been actively contributing to the project and now has commit
 and release privileges. Thanks!
 
 If you're using this package on a regular basis and feel you'd be a good fit to
 help out with active development, please [contact me](https://twitter.com/gavinballard).
 
-Session tokens
+Embedded vs Standalone apps
 --------------
 
-Session token-based authentication is now required for embedded apps. Support for it is implemented in [separate app](shopify_auth/session_tokens/).
+Session token-based authentication is now required for embedded apps. Support for it is implemented in [separate app](shopify_auth/session_tokens/). Read [this](https://shopify.dev/apps/getting-started/app-types#embedded-apps) if you're not sure what approach to use.
 
 Requirements
 ------------
-Tests are run against Django versions defined in `.travis.yml`. This package may work for
+Tests are run against Django versions defined in `.github/workflows/ci.yml`. This package may work for
 other Django versions but it's not guaranteed.
 
-As with the original `shopify_django_app` package, you'll need a [Shopify partner account](http://shopify.com/partners)
-and to have created an app in order to get an API key and secret.
+You'll need a [Shopify partner account](http://shopify.com/partners) and to have created an app in order to get an API key and secret.
 
 
-Package Installation and Setup
+Package Installation and Setup - Standalone app
 ------------------------------
 There are a few moving parts to set up, but hopefully the following instructions will make things straightforward.
 
@@ -103,11 +102,8 @@ SHOPIFY_APP_API_SECRET = os.environ.get('SHOPIFY_APP_API_SECRET')
 SHOPIFY_APP_API_SCOPE = ['read_products', 'read_orders']
 # Find API version to pin at https://help.shopify.com/en/api/versioning
 SHOPIFY_APP_API_VERSION = "0000-00"
-SHOPIFY_APP_IS_EMBEDDED = True
+SHOPIFY_APP_IS_EMBEDDED = False
 SHOPIFY_APP_DEV_MODE = False
-
-# Enable after the app is approved
-SHOPIFY_APP_THIRD_PARTY_COOKIE_CHECK = False
 
 # Use the Shopify Auth authentication backend as the sole authentication backend.
 AUTHENTICATION_BACKENDS = (
@@ -135,24 +131,9 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 Note that in the example above, the application API key and API secret are pulled from environment settings, which is a
 best practice for Django apps that helps avoid the accidental check-in of sensitive information to source files.
 
-Set `SHOPIFY_APP_IS_EMBEDDED` to `True` if your app has been configured as an Embedded app (you choose this option at
-the time of app creation). Setting this will make the app provide a Javascript-based redirect that breaks out of an
-embedded app's `<iframe>` during the authentication flow as per [the Shopify documentation](http://docs.shopify.com/embedded-app-sdk).
-If `SHOPIFY_APP_IS_EMBEDDED` is `False`, the normal authentication flow for non-Embedded apps will be used.
-
 Setting `SHOPIFY_APP_DEV_MODE` to `True` allows you to test your apps locally by skipping the external OAuth phase for
 your app. As it means you can log into your app as any store, you should obviously ***never*** set this to `True` in
 production.
-
-With [changes to SameSite policy](https://web.dev/samesite-cookies-explained/) embedded apps now have to run in `SameSite=None; Secure` mode. As there are [some browsers](https://www.chromium.org/updates/same-site/incompatible-clients) that don't handle `SameSite=None` we can't use `SESSION_COOKIE_SAMESITE = 'None'` provided by Django 3.1. Instead we have to use a middleware. Place `shopify_auth.cookies_middleware.SamesiteCookieMiddleware` as the first middleware and configure following values in your `settings.py`.
-
-```python
-SESSION_COOKIE_SAMESITE = None
-CSRF_COOKIE_SAMESITE = None
-
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-```
 
 Now that all of the settings are configured, you can run `migrate` to set up the database for your new user model:
 
@@ -192,38 +173,7 @@ def home(request, *args, **kwargs):
     return render(request, "my_app/home.html")
 ```
 
-
-### 6. Using the Embedded App SDK
-If you're using the Embedded App SDK, be aware that the HTML your views return must contained some Javascript in the
-`<head>` to properly frame your app within the Shopify Admin.
-
-Generally, all pages you'd like embedded in the Shopify Admin should contain something like this in `<head>`:
-
-```html
-<script type="text/javascript" src="https://cdn.shopify.com/s/assets/external/app.js"></script>
-<script type="text/javascript">
-    ShopifyApp.init({
-        apiKey: '{{ SHOPIFY_APP_API_KEY }}',
-        shopOrigin: 'https://{{ user.myshopify_domain }}'
-    });
-    ShopifyApp.ready(function() {
-        ShopifyApp.Bar.initialize({
-            title: '{{ SHOPIFY_APP_NAME }}',
-            buttons: {}
-        });
-    });
-</script>
-```
-
-Recent versions of Django's `startproject` add `django.middleware.clickjacking.XFrameOptionsMiddleware` to the
-`MIDDLEWARE_CLASSES` list in `settings.py`. This prevents pages being loading in an `<iframe>`, meaning your app pages
-will not be displayed in the Shopify admin.
-
-To resolve this issue, you should either remove `XFrameOptionsMiddleware` from your `MIDDLEWARE_CLASSES`, or ensure that
-all of your app views make use of the `@xframe_options_exempt` decorator.
-
-
-### 7. Making Shopify API calls
+### 6. Making Shopify API calls
 To make Shopify API calls on behalf of a user, we can use the user's `session` property inside a `with` statement:
 
 ```python
