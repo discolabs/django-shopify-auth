@@ -1,7 +1,4 @@
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
-
-name: Python application
+name: Tests
 
 on:
   push:
@@ -16,8 +13,8 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.8", "3.9", "3.10"]
-        django: ["Django<3.0", "Django<3.1", "Django<3.2", "Django<4.0"]
-           
+        django: ["Django<3.0", "Django<3.2", "Django<4.0"]
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
