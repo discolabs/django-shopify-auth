@@ -2,6 +2,7 @@ Django Shopify Auth
 ===================
 
 [![PyPI version](https://badge.fury.io/py/django-shopify-auth.svg)](http://badge.fury.io/py/django-shopify-auth)
+![example workflow](https://github.com/discolabs/django-shopify-auth/actions/workflows/ci.yml/badge.svg)
 
 This Django package makes it easy to integrate Shopify authentication into your Django app.
 
@@ -23,7 +24,7 @@ as I don't use Django in my day-to-day Shopify development any more (the last
 version I used with much regularity was Django 1.9) I am not actively working on
 the code.
 
-More recently, Josef Rousek(@stlk) has been actively contributing to the project and now has commit
+More recently, [Josef Rousek](https://github.com/stlk) has been actively contributing to the project and now has commit
 and release privileges. Thanks!
 
 If you're using this package on a regular basis and feel you'd be a good fit to
@@ -36,7 +37,7 @@ Session token-based authentication is now required for embedded apps. Support fo
 
 Requirements
 ------------
-Tests are run against Django versions defined in `.travis.yml`. This package may work for
+Tests are run against Django versions defined in `.github/workflows/ci.yml`. This package may work for
 other Django versions but it's not guaranteed.
 
 You'll need a [Shopify partner account](http://shopify.com/partners) and to have created an app in order to get an API key and secret.
