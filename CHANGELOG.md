@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 No unreleased changes.
 
+## 1.2.1 - 2021-11-08
+
+### Added
+- Added function allowing to get the user instance using the session token string.
+- Added session_tokens app specific `context_processors`.
+
 ## 1.2.0 - 2021-08-17
 
 ### Added
