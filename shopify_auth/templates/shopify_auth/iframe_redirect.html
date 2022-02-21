@@ -1,15 +1,15 @@
+<script src="https://unpkg.com/@shopify/app-bridge@2"></script>
 <script type="text/javascript">
     const AppBridge = window['app-bridge'];
-    const createApp = AppBridge.default;
-    const Redirect = AppBridge.actions.Redirect;
-    const app = createApp({
-        apiKey: window.apiKey,
-        shopOrigin: '{{ shop }}',
+    const app = AppBridge.default({
+        apiKey: "{{ SHOPIFY_APP_API_KEY }}",
+        shopOrigin: "{{ shop }}",
     });
 
     const normalizedLink = document.createElement('a');
-    normalizedLink.href = '{{ redirect_uri }}';
+    normalizedLink.href = "{{ redirect_uri }}";
 
+    const Redirect = AppBridge.actions.Redirect;
     Redirect.create(app).dispatch(Redirect.Action.REMOTE, normalizedLink.href);
 
     window.appBridgeRedirect = appBridgeRedirect;
