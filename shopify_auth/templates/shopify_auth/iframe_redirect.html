@@ -1,17 +1,16 @@
 <script type="text/javascript">
-  // If the current window is the 'parent', change the URL by setting location.href
-  if (window.top == window.self) {
-    window.top.location.href = "{{ redirect_uri }}";
-
-  // If the current window is the 'child', change the parent's URL with postMessage
-  } else {
-    var normalizedLink = document.createElement('a');
-    normalizedLink.href = "{{ redirect_uri }}";
-
-    var message = JSON.stringify({
-      message: "Shopify.API.remoteRedirect",
-      data: { location: normalizedLink.href }
+    const AppBridge = window['app-bridge'];
+    const createApp = AppBridge.default;
+    const Redirect = AppBridge.actions.Redirect;
+    const app = createApp({
+        apiKey: window.apiKey,
+        shopOrigin: '{{ shop }}',
     });
-    window.parent.postMessage(message, "https://{{ shop }}");
-  }
+
+    const normalizedLink = document.createElement('a');
+    normalizedLink.href = '{{ redirect_uri }}';
+
+    Redirect.create(app).dispatch(Redirect.Action.REMOTE, normalizedLink.href);
+
+    window.appBridgeRedirect = appBridgeRedirect;
 </script>
