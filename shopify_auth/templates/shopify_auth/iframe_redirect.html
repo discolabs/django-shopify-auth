@@ -1,17 +1,21 @@
+<script src="https://unpkg.com/@shopify/app-bridge@2"></script>
 <script type="text/javascript">
-  // If the current window is the 'parent', change the URL by setting location.href
-  if (window.top == window.self) {
-    window.top.location.href = "{{ redirect_uri }}";
+    // If the current window is the 'parent', change the URL by setting location.href
+    if (window.top === window.self) {
+        window.top.location.href = "{{ redirect_uri }}";
 
-  // If the current window is the 'child', change the parent's URL with postMessage
-  } else {
-    var normalizedLink = document.createElement('a');
-    normalizedLink.href = "{{ redirect_uri }}";
+    // If the current window is the 'child', change the parent's URL with App Bridge Redirect
+    } else {
+        var AppBridge = window['app-bridge'];
+        var app = AppBridge.default({
+            apiKey: "{{ SHOPIFY_APP_API_KEY }}",
+            shopOrigin: "{{ shop }}",
+        });
 
-    var message = JSON.stringify({
-      message: "Shopify.API.remoteRedirect",
-      data: { location: normalizedLink.href }
-    });
-    window.parent.postMessage(message, "https://{{ shop }}");
-  }
+        var normalizedLink = document.createElement('a');
+        normalizedLink.href = "{{ redirect_uri }}";
+
+        var Redirect = AppBridge.actions.Redirect;
+        Redirect.create(app).dispatch(Redirect.Action.REMOTE, normalizedLink.href);
+    }
 </script>
