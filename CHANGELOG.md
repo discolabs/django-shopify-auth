@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 ## Unreleased
-No unreleased changes.
+-  Migrate redirect calls to App Bridge.
 
 ## 1.2.1 - 2021-11-08
 
