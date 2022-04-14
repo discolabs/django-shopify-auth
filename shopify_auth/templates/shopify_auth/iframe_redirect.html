@@ -2,7 +2,7 @@
 <script type="text/javascript">
     // If the current window is the 'parent', change the URL by setting location.href
     if (window.top === window.self) {
-        window.top.location.href = "{{ redirect_uri }}";
+        window.top.location.href = "{{ redirect_uri|safe }}";
 
     // If the current window is the 'child', change the parent's URL with App Bridge Redirect
     } else {
@@ -13,7 +13,7 @@
         });
 
         var normalizedLink = document.createElement('a');
-        normalizedLink.href = "{{ redirect_uri }}";
+        normalizedLink.href = "{{ redirect_uri|safe }}";
 
         var Redirect = AppBridge.actions.Redirect;
         Redirect.create(app).dispatch(Redirect.Action.REMOTE, normalizedLink.href);
