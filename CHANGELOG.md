@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 No unreleased changes.
 
+## 1.2.3 - 2022-04-14
+
+### Changed
+-  Don't escape redirect_uri in iframe_redirect.html. Shopify gracefully handles HTML encoded URLs, but occasionally it doesn't.
+- Update URL definitions to be compatible with Django 4.
+
 ## 1.2.2 - 2022-02-28
 
 ### Changed
