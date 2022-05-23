@@ -15,21 +15,6 @@ This Django package makes it easy to integrate Shopify authentication into your 
 
 * It supports the token-based authentication flow for Embedded Shopify apps.
 
-Package Status
---------------
-The original package author (@gavinballard) is currently in "non-active maintenance"
-mode. I am happy to review and merge pull requests that provide a clear description
-of the problem they solve and provide a thorough test to avoid any regressions, but
-as I don't use Django in my day-to-day Shopify development any more (the last
-version I used with much regularity was Django 1.9) I am not actively working on
-the code.
-
-More recently, [Josef Rousek](https://github.com/stlk) has been actively contributing to the project and now has commit
-and release privileges. Thanks!
-
-If you're using this package on a regular basis and feel you'd be a good fit to
-help out with active development, please [contact me](https://twitter.com/gavinballard).
-
 Embedded vs Standalone apps
 --------------
 
@@ -223,3 +208,8 @@ Special Thanks
 --------------
 
 A big shout-out to [Josef Rousek](https://github.com/stlk) for his contributions and help maintaining this package.
+
+Work with us!
+------------------
+
+If you want to work with Django and maybe even React, the current maintainer [Digismoothie.com is hiring](https://www.digismoothie.com/company/careers).
