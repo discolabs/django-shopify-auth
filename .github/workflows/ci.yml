@@ -12,13 +12,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10"]
-        django: ["Django<3.0", "Django<3.2", "Django<4.0"]
+        python-version: ["3.8", "3.9", "3.10", "3.11"]
+        django: ["Django<4.0", "Django<4.1", "Django<4.2"]
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
