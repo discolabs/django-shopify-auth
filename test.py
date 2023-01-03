@@ -2,11 +2,6 @@ import sys
 import django
 from django.conf import settings
 
-if django.VERSION >= (2, 0, 0):
-    middleware_settings_key = "MIDDLEWARE"
-else:
-    middleware_settings_key = 'MIDDLEWARE_CLASSES'
-
 configuration = {
     'DEBUG': True,
     'DATABASES': {
@@ -33,11 +28,10 @@ configuration = {
     'SHOPIFY_APP_API_SECRET': 'test-api-secret',
     'SHOPIFY_APP_API_VERSION': 'unstable',
     'SHOPIFY_APP_API_SCOPE': ['read_products'],
-    'SHOPIFY_APP_IS_EMBEDDED': True,
     'SHOPIFY_APP_DEV_MODE': False,
     'SHOPIFY_APP_THIRD_PARTY_COOKIE_CHECK': True,
     'SECRET_KEY': 'uq8e140t1rm3^kk&blqxi*y9h_j5yd9ghjv+fd1p%08g4%t6%i',
-    middleware_settings_key: [
+    'MIDDLEWARE': [
         'django.middleware.common.CommonMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
