@@ -87,7 +87,6 @@ SHOPIFY_APP_API_SECRET = os.environ.get('SHOPIFY_APP_API_SECRET')
 SHOPIFY_APP_API_SCOPE = ['read_products', 'read_orders']
 # Find API version to pin at https://help.shopify.com/en/api/versioning
 SHOPIFY_APP_API_VERSION = "0000-00"
-SHOPIFY_APP_IS_EMBEDDED = False
 SHOPIFY_APP_DEV_MODE = False
 
 # Use the Shopify Auth authentication backend as the sole authentication backend.

@@ -2,7 +2,9 @@
 All notable changes to this project will be documented in this file.
 
 ## Unreleased
-No unreleased changes.
+
+### Removed
+- Removed support for cookie based embedded apps.
 
 ## 1.2.3 - 2022-04-14
 
