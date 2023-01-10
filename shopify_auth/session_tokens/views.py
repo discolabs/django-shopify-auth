@@ -34,7 +34,7 @@ def get_scope_permission(request, myshopify_domain):
 
     host = request.GET.get("host")
     if not host:
-        return HttpResponse("expected host query parameter when embedded=1 is present")
+        raise Exception("expected host query parameter when embedded=1 is present")
 
     return render(
         request,
