@@ -1,21 +1,44 @@
-<script src="https://unpkg.com/@shopify/app-bridge@2"></script>
+<script src="https://unpkg.com/@shopify/app-bridge@3"></script>
+<script src="https://unpkg.com/@shopify/app-bridge-utils@3"></script>
 <script type="text/javascript">
-    // If the current window is the 'parent', change the URL by setting location.href
-    if (window.top === window.self) {
-        window.top.location.href = "{{ redirect_uri|safe }}";
+    (function (window) {
+        function appBridgeRedirect(url) {
+            var AppBridge = window['app-bridge'];
+            var createApp = AppBridge.default;
+            var Redirect = AppBridge.actions.Redirect;
+            var shopifyData = document.body.dataset;
 
-    // If the current window is the 'child', change the parent's URL with App Bridge Redirect
-    } else {
-        var AppBridge = window['app-bridge'];
-        var app = AppBridge.default({
-            apiKey: "{{ SHOPIFY_APP_API_KEY }}",
-            shopOrigin: "{{ shop }}",
-        });
+            var app = createApp({
+                apiKey: '{{ SHOPIFY_APP_API_KEY }}',
+                host: '{{ host }}',
+            });
 
-        var normalizedLink = document.createElement('a');
-        normalizedLink.href = "{{ redirect_uri|safe }}";
+            var normalizedLink = document.createElement('a');
+            normalizedLink.href = url;
 
-        var Redirect = AppBridge.actions.Redirect;
-        Redirect.create(app).dispatch(Redirect.Action.REMOTE, normalizedLink.href);
-    }
+            Redirect.create(app).dispatch(Redirect.Action.REMOTE, normalizedLink.href);
+        }
+
+        window.appBridgeRedirect = appBridgeRedirect;
+    })(window);
+
+    (function () {
+        function redirect() {
+            var appBridgeUtils = window['app-bridge-utils'];
+            var targetUrl = '{{ redirect_uri|safe }}';
+
+            if (appBridgeUtils.isShopifyEmbedded()) {
+                window.appBridgeRedirect(targetUrl);
+            } else {
+                window.top.location.href = targetUrl;
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", redirect);
+
+        // In the turbolinks context, neither DOMContentLoaded nor turbolinks:load
+        // consistently fires. This ensures that we at least attempt to fire in the
+        // turbolinks situation as well.
+        redirect();
+    })();
 </script>

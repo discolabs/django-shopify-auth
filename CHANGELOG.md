@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 
 ### Removed
 - Removed support for cookie based embedded apps.
+### Changed
+- Migrate redirect calls to App Bridge 3.
+- The template `iframe_redirect.html` now expects `host` parameter, not `shop`.
+- `session_tokens.views.get_scope_permission` now detects `embedded` query parameter.
+- `session_tokens.views.FinalizeAuthView` now redirects to the domain defined in `host` query parameter if present.
+
 
 ## 1.2.3 - 2022-04-14
 
