@@ -41,6 +41,7 @@ def get_user(token):
         JWTClaimsError,
         AssertionError,
         ObjectDoesNotExist,
+        KeyError,
     ) as e:
         logging.warning(f"Login user failed: {e}.")
 
