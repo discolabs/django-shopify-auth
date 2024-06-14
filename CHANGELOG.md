@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 No unreleased changes.
 
+## 2.0.1 - 2024-06-14
+
+### Changed
+- Shopify UI extensions send tokens without iss key. To prevent the middleware from raising exceptions for these requests we're now ignoring missing iss key.
+
+
 ## 2.0.0 - 2023-01-10
 
 ### Removed
