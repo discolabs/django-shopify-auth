@@ -69,3 +69,18 @@ class FinalizeAuthView(View):
         return HttpResponseRedirect(
             f"https://{myshopify_domain}/admin/apps/{settings.SHOPIFY_APP_API_KEY}"
         )
+
+
+def session_token_bounce(request) -> HttpResponse:
+    """
+    The entire flow is documented on https://shopify.dev/docs/apps/build/authentication-authorization/set-embedded-app-authorization?extension=javascript#session-token-in-the-url-parameter
+    """
+    response = HttpResponse(content_type="text/html")
+    html = f"""
+    <head>
+        <meta name="shopify-api-key" content="{settings.SHOPIFY_APP_API_KEY}" />
+        <script src="https://cdn.shopify.com/shopifycloud/app-bridge.js"></script>
+    </head>
+    """
+    response.write(html)
+    return response

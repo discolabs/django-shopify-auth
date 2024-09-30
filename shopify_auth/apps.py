@@ -18,6 +18,8 @@ class ShopifyAuthConfig(AppConfig):
         The ready() method is called after Django setup.
         """
         initialise_shopify_session()
+        import shopify_auth.checks
+
 
 
 def initialise_shopify_session():
