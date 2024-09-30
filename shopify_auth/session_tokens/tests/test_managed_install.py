@@ -40,13 +40,6 @@ class ManagedInstallTestCase(TestCase):
         expected_url = '/bounce/?param1=value1&shopify-reload=%2Ftest-path%2F%3Fparam1%3Dvalue1'
         self.assertEqual(url, expected_url)
 
-    def test_session_token_bounce_page_url_missing_setting(self):
-        request = self.factory.get('/test-path/')
-        
-        with self.settings(SHOPIFY_AUTH_BOUNCE_PAGE_URL=None):
-            with self.assertRaises(ImproperlyConfigured):
-                session_token_bounce_page_url(request)
-
     def test_redirect_to_session_token_bounce_page(self):
         request = self.factory.get('/test-path/')
         

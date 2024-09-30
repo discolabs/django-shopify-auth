@@ -30,6 +30,7 @@ configuration = {
     'SHOPIFY_APP_API_SCOPE': ['read_products'],
     'SHOPIFY_APP_DEV_MODE': False,
     'SHOPIFY_APP_THIRD_PARTY_COOKIE_CHECK': True,
+    'SHOPIFY_AUTH_BOUNCE_PAGE_URL': '/',
     'SECRET_KEY': 'uq8e140t1rm3^kk&blqxi*y9h_j5yd9ghjv+fd1p%08g4%t6%i',
     'MIDDLEWARE': [
         'django.middleware.common.CommonMiddleware',
