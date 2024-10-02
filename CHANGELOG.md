@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 No unreleased changes.
 
+
+## 2.1.0 - 2024-10-02
+
+### Added
+- Added utility functions for managed app installation.
+
+
 ## 2.0.1 - 2024-06-14
 
 ### Changed
