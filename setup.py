@@ -19,10 +19,11 @@ setup(
     },
 
     install_requires=[
-        'django >=3.2',
+        'django >=4.2',
         'ShopifyAPI >=8.0.0',
         'setuptools >=5.7',
-        'python-jose >=3.2.0'
+        'python-jose >=3.2.0',
+        'requests >=2.0.0',
     ],
 
     tests_require=[],

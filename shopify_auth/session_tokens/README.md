@@ -6,6 +6,9 @@ This app takes care of the installation and provides middleware that adds a user
 
 I created a [demo app](https://github.com/digismoothie/django-session-token-auth-demo) that uses Hotwire, successor of Turbolinks.
 
+> [!NOTE]  
+> Managed installation is much more involved because there's no speficic install entrypoint. The main entrypoint is used instead. For now you can use managed_install.py and session_token_bounce view.
+
 ### Instalation
 
 ### 1. Install package
