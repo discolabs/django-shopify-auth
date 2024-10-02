@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 No unreleased changes.
 
 
+## 2.1.1 - 2024-10-02
+
+### Changed
+- Reverted Django version requirement back to 3.2.
+
+
 ## 2.1.0 - 2024-10-02
 
 ### Added
