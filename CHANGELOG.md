@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 No unreleased changes.
 
+## 2.1.2 - 2025-01-17
+
+### Changed
+- Replaced 'python-jose' with 'pyjwt' because 'python-jose' is no longer maintained.
+
 
 ## 2.1.1 - 2024-10-02
 
