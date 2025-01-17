@@ -10,6 +10,7 @@ def generate_jwt_token(shop):
         {
             "iss": f"https://{shop.myshopify_domain}",
             "dest": f"https://{shop.myshopify_domain}",
+            "aud": settings.SHOPIFY_APP_API_KEY,
         },
         settings.SHOPIFY_APP_API_SECRET,
     )

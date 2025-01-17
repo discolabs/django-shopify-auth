@@ -4,9 +4,9 @@ from urllib.parse import urlparse
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import get_user_model
 
+import jwt
 from django.conf import settings
-from jose import jwt
-from jose.exceptions import ExpiredSignatureError, JWTClaimsError, JWTError
+from jwt.exceptions import ExpiredSignatureError, MissingRequiredClaimError, PyJWTError
 
 
 def get_hostname(url):
@@ -37,8 +37,8 @@ def get_user(token):
 
     except (
         ExpiredSignatureError,
-        JWTError,
-        JWTClaimsError,
+        PyJWTError,
+        MissingRequiredClaimError,
         AssertionError,
         ObjectDoesNotExist,
         KeyError,

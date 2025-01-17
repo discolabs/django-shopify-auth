@@ -22,7 +22,7 @@ setup(
         'django >=3.2',
         'ShopifyAPI >=8.0.0',
         'setuptools >=5.7',
-        'python-jose >=3.2.0',
+        'PyJWT >=2.0.0',
         'requests >=2.0.0',
     ],
 
